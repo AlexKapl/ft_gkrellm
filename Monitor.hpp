@@ -1,36 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   IMonitorModule.hpp                                 :+:      :+:    :+:   */
+/*   Monitor.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akaplyar <akaplyar@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/10 16:36:00 by akaplyar          #+#    #+#             */
-/*   Updated: 2017/11/10 16:36:00 by akaplyar         ###   ########.fr       */
+/*   Created: 2017/11/10 18:53:00 by akaplyar          #+#    #+#             */
+/*   Updated: 2017/11/10 18:53:00 by akaplyar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#ifndef IMONITORMODULE_HPP
-# define IMONITORMODULE_HPP
+#ifndef MONITOR_HPP
+# define MONITOR_HPP
 
 # include "ft_gkrellm.h"
+# include "IMonitorModule.hpp"
+# include "IMonitorDisplay.hpp"
 
-class IMonitorModule {
+
+class Monitor {
 
 public:
 
-	IMonitorModule() {}
+	Monitor();
 
-	virtual ~IMonitorModule() {}
+	Monitor(Monitor const &copy);
 
-	virtual void refresh() = 0;
+	~Monitor();
+
+	Monitor &operator=(Monitor const &assign);
+
+	void	refresh();
+
+	void	addModule(IMonitorModule * module);
+
+	void	deleteModule(IMonitorModule * module);
 
 private:
 
-	IMonitorModule(const IMonitorModule &) {};
-
-	IMonitorModule &operator=(const IMonitorModule &rhs);
+	int width;
+	int height;
+	std::vector<IMonitorModule *> modules;
 
 };
 

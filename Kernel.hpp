@@ -1,36 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   IMonitorModule.hpp                                 :+:      :+:    :+:   */
+/*   Kernel.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akaplyar <akaplyar@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/10 16:36:00 by akaplyar          #+#    #+#             */
-/*   Updated: 2017/11/10 16:36:00 by akaplyar         ###   ########.fr       */
+/*   Created: 2017/11/10 20:31:00 by akaplyar          #+#    #+#             */
+/*   Updated: 2017/11/10 20:31:00 by akaplyar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#ifndef IMONITORMODULE_HPP
-# define IMONITORMODULE_HPP
+#ifndef KERNEL_HPP
+# define KERNEL_HPP
 
 # include "ft_gkrellm.h"
 
-class IMonitorModule {
+
+class Kernel {
 
 public:
 
-	IMonitorModule() {}
+	static std::string & getKernelInfoByName(const std::string & name);
 
-	virtual ~IMonitorModule() {}
-
-	virtual void refresh() = 0;
+	static std::string & getUserName();
 
 private:
 
-	IMonitorModule(const IMonitorModule &) {};
+	Kernel();
 
-	IMonitorModule &operator=(const IMonitorModule &rhs);
+	Kernel(Kernel const &copy);
+
+	~Kernel();
+
+	Kernel &operator=(Kernel const &assign);
 
 };
 

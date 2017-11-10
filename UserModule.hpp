@@ -1,36 +1,49 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   IMonitorModule.hpp                                 :+:      :+:    :+:   */
+/*   UserModule.hpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akaplyar <akaplyar@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/10 16:36:00 by akaplyar          #+#    #+#             */
-/*   Updated: 2017/11/10 16:36:00 by akaplyar         ###   ########.fr       */
+/*   Created: 2017/11/10 19:05:00 by akaplyar          #+#    #+#             */
+/*   Updated: 2017/11/10 19:05:00 by akaplyar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#ifndef IMONITORMODULE_HPP
-# define IMONITORMODULE_HPP
+#ifndef USERMODULE_HPP
+# define USERMODULE_HPP
 
-# include "ft_gkrellm.h"
+# include "IMonitorModule.hpp"
+# include "Kernel.hpp"
+# include "Line.hpp"
 
-class IMonitorModule {
+
+class UserModule : public IMonitorModule {
 
 public:
 
-	IMonitorModule() {}
+	UserModule(int height);
 
-	virtual ~IMonitorModule() {}
+	~UserModule();
 
-	virtual void refresh() = 0;
+	void	refresh();
 
 private:
 
-	IMonitorModule(const IMonitorModule &) {};
+	enum info {Host, User};
 
-	IMonitorModule &operator=(const IMonitorModule &rhs);
+	int width;
+	int height;
+	const std::string title;
+	WINDOW *win;
+	Line::Lines lines;
+
+	UserModule();
+
+	UserModule(UserModule const &copy);
+
+	UserModule &operator=(UserModule const &assign);
 
 };
 

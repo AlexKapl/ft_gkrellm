@@ -1,36 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   IMonitorModule.hpp                                 :+:      :+:    :+:   */
+/*   MyException.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akaplyar <akaplyar@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/10 16:36:00 by akaplyar          #+#    #+#             */
-/*   Updated: 2017/11/10 16:36:00 by akaplyar         ###   ########.fr       */
+/*   Created: 2017/11/10 19:56:00 by akaplyar          #+#    #+#             */
+/*   Updated: 2017/11/10 19:56:00 by akaplyar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#ifndef IMONITORMODULE_HPP
-# define IMONITORMODULE_HPP
+#ifndef MYEXCEPTION_HPP
+# define MYEXCEPTION_HPP
 
-# include "ft_gkrellm.h"
+# include <iostream>
 
-class IMonitorModule {
+
+class MyException : public std::exception {
 
 public:
 
-	IMonitorModule() {}
+	enum type_e {Width = 1, Height};
 
-	virtual ~IMonitorModule() {}
+	MyException();
 
-	virtual void refresh() = 0;
+	MyException(const std::string &msg);
+
+	MyException(type_e type);
+
+	virtual ~MyException() throw();
+
+	const std::string & getMsg() throw();
 
 private:
 
-	IMonitorModule(const IMonitorModule &) {};
+	std::string	msg;
+	type_e	type;
 
-	IMonitorModule &operator=(const IMonitorModule &rhs);
+	MyException(MyException const &copy);
+
+	MyException &operator=(MyException const &assign);
 
 };
 

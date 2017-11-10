@@ -14,8 +14,7 @@
 #ifndef IMONITORDISPLAY_HPP
 # define IMONITORDISPLAY_HPP
 
-# include <iostream>
-
+# include "ft_gkrellm.h"
 
 class IMonitorDisplay {
 
