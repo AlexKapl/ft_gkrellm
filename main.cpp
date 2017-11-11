@@ -11,32 +11,21 @@
 /* ************************************************************************** */
 
 # include "ft_gkrellm.h"
-
-static void init() {
-	initscr();
-	cbreak();
-	noecho();
-	curs_set(0);
-	nodelay(stdscr, true);
-	keypad(stdscr, true);
-	start_color();
-	init_color(COLOR_MAGENTA, 441, 453, 455);
-	init_pair(1, COLOR_GREEN, COLOR_BLACK);
-	init_pair(2, COLOR_RED, COLOR_BLACK);
-	init_pair(3, COLOR_BLUE, COLOR_BLACK);
-	init_pair(4, COLOR_CYAN, COLOR_BLACK);
-	init_pair(BORDER, COLOR_BLACK, COLOR_MAGENTA);
-	init_pair(TITLE, COLOR_WHITE, COLOR_MAGENTA);
-	init_pair(7, COLOR_YELLOW, COLOR_BLACK);
-	attron(COLOR_PAIR(BORDER));
-	wborder(stdscr, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
-	attroff(COLOR_PAIR(BORDER));
-	refresh();
-}
+# include "Monitor.hpp"
+# include "UserModule.hpp"
+# include "NcursesDisplay.hpp"
 
 int main() {
+	int	g;
+	Monitor monitor;
 
-	init();
-	while (1);
+	monitor.setDisplay(new NcursesDisplay());
+	monitor.addModule(new UserModule(monitor.getHeight(), monitor));
+	monitor.draw();
+	do {
+		g = getch();
+	}
+	while (g != 27);
+	endwin();
 	return (0);
 }

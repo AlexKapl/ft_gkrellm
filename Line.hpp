@@ -43,6 +43,8 @@ public:
 
 private:
 
+	int	len;
+	int size;
 	std::string	name;
 	std::string	value;
 };

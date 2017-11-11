@@ -23,6 +23,7 @@
 # include "MyException.hpp"
 
 # define WIN_H(x) ((x) + 4)
+# define TEXT 4
 # define BORDER 5
 # define TITLE 6
 

@@ -15,12 +15,13 @@
 // * STATICS **************************************************************** //
 // * CONSTRUCTORS *********************************************************** //
 
-Line::Line() : name(), value() {}
+Line::Line() : len(0), size(0), name(), value() {}
 
 Line::Line(const std::string &name, const std::string &value) :
-		name(name), value(value) {}
+		len(name.size()), size(value.size()), name(name), value(value) {}
 
-Line::Line(Line const &copy) : name(copy.name), value(copy.value) {}
+Line::Line(Line const &copy) :
+		len(copy.len), size(copy.size), name(copy.name), value(copy.value) {}
 
 // * DESTRUCTORS ************************************************************ //
 
@@ -30,6 +31,8 @@ Line::~Line() {}
 
 Line &Line::operator=(Line const &assign) {
 	if (this != &assign) {
+		len = assign.len;
+		size = assign.size;
 		name = assign.name;
 		value = assign.value;
 	}
@@ -50,10 +53,12 @@ const std::string &Line::getValue() const {
 
 void Line::setName(const std::string &name) {
 	this->name = name;
+	this->len = name.size();
 }
 
 void Line::setValue(const std::string &value) {
 	this->value = value;
+	this->size = value.size();
 }
 
 // * MEMBER FUNCTIONS / METHODS ********************************************* //

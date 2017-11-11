@@ -14,7 +14,7 @@
 
 // * STATICS **************************************************************** //
 
-std::string &Kernel::getKernelInfoByName(const std::string &name) {
+std::string Kernel::getKernelInfoByName(const std::string &name) {
 	char info[1024];
 	size_t size = sizeof(info);
 //	char *str = new char[name.size() + 1];
@@ -26,11 +26,22 @@ std::string &Kernel::getKernelInfoByName(const std::string &name) {
 	return (ret);
 }
 
+std::string Kernel::getUserName() {
+	struct passwd *pwuid;
+	std::string name;
+
+	pwuid = getpwuid(getuid());
+	if (pwuid) {
+		name = pwuid->pw_name;
+	}
+	return (name);
+}
+
 // * CONSTRUCTORS *********************************************************** //
 
 Kernel::Kernel() {}
 
-Kernel::Kernel(Kernel const &copy) {}
+Kernel::Kernel(Kernel const &) {}
 
 // * DESTRUCTORS ************************************************************ //
 
@@ -43,17 +54,6 @@ Kernel &Kernel::operator=(Kernel const &assign) {
 
 	}
 	return (*this);
-}
-
-std::string &Kernel::getUserName() {
-	struct passwd *pwuid;
-	std::string name;
-
-	pwuid = getpwuid(getuid());
-	if (pwuid) {
-		name = pwuid->pw_name;
-	}
-	return (name);
 }
 
 // * GETTERS **************************************************************** //

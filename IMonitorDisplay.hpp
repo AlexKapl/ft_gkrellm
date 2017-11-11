@@ -15,6 +15,7 @@
 # define IMONITORDISPLAY_HPP
 
 # include "ft_gkrellm.h"
+# include "Line.hpp"
 
 class IMonitorDisplay {
 
@@ -23,6 +24,18 @@ public:
 	IMonitorDisplay() {}
 
 	virtual ~IMonitorDisplay() {}
+
+	virtual void draw() = 0;
+
+	virtual void drawBorder(int num) = 0;
+
+	virtual void drawTitle(int num, int x, Line * line) = 0;
+
+	virtual void drawLine(int num, int y, int x, Line * line) = 0;
+
+	virtual void getMaxYX(int &h, int &w) = 0;
+
+	virtual int getWindowNum(int h, int w, int y, int x) = 0;
 
 private:
 

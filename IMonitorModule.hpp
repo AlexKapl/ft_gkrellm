@@ -16,6 +16,8 @@
 
 # include "ft_gkrellm.h"
 
+class IMonitorDisplay;
+
 class IMonitorModule {
 
 public:
@@ -25,6 +27,8 @@ public:
 	virtual ~IMonitorModule() {}
 
 	virtual void refresh() = 0;
+
+	virtual void draw(IMonitorDisplay * display) = 0;
 
 private:
 

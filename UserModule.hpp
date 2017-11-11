@@ -15,6 +15,7 @@
 # define USERMODULE_HPP
 
 # include "IMonitorModule.hpp"
+# include "Monitor.hpp"
 # include "Kernel.hpp"
 # include "Line.hpp"
 
@@ -23,20 +24,25 @@ class UserModule : public IMonitorModule {
 
 public:
 
-	UserModule(int height);
+	UserModule(int height, Monitor & monitor);
 
 	~UserModule();
 
-	void	refresh();
+	void refresh();
+
+	void draw(IMonitorDisplay * display);
+
+	int getWidth() const;
+
+	int getHeight() const;
 
 private:
 
-	enum info {Host, User};
+	enum info {Title, Empty, Host, User};
 
+	int win;
 	int width;
 	int height;
-	const std::string title;
-	WINDOW *win;
 	Line::Lines lines;
 
 	UserModule();
@@ -44,6 +50,7 @@ private:
 	UserModule(UserModule const &copy);
 
 	UserModule &operator=(UserModule const &assign);
+
 
 };
 

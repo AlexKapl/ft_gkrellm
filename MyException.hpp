@@ -23,11 +23,11 @@ public:
 
 	enum type_e {Width = 1, Height};
 
-	MyException();
+	explicit MyException(const std::string &msg);
 
-	MyException(const std::string &msg);
+	explicit MyException(const char *msg);
 
-	MyException(type_e type);
+	explicit MyException(type_e type) throw();
 
 	virtual ~MyException() throw();
 
@@ -38,7 +38,9 @@ private:
 	std::string	msg;
 	type_e	type;
 
-	MyException(MyException const &copy);
+	MyException();
+
+	explicit MyException(MyException const &copy);
 
 	MyException &operator=(MyException const &assign);
 

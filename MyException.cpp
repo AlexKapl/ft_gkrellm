@@ -17,10 +17,12 @@
 
 MyException::MyException() : msg(), type() {}
 
-MyException::MyException(const std::string &msg) : msg(msg), type() {}
+MyException::MyException(const std::string &msg) :  msg(msg), type() {}
 
-MyException::MyException(MyException::type_e type) : msg(), type(type) {
-	switch (type) {
+MyException::MyException(const char *msg) : msg(msg), type() {}
+
+MyException::MyException(MyException::type_e type) throw() : msg(), type(type) {
+	switch (this->type) {
 		case Width:
 			msg = "Can't fit data in window. Please increase width";
 			break;
@@ -30,7 +32,7 @@ MyException::MyException(MyException::type_e type) : msg(), type(type) {
 	}
 }
 
-MyException::MyException(MyException const &copy) {}
+MyException::MyException(MyException const &copy) : std::exception(copy) {}
 
 // * DESTRUCTORS ************************************************************ //
 
@@ -49,13 +51,8 @@ MyException &MyException::operator=(MyException const &assign) {
 // * SETTERS **************************************************************** //
 // * MEMBER FUNCTIONS / METHODS ********************************************* //
 
-const std::string &MyException::getMsg() {
-	if (msg.empty()) {
-		return "Something goes wrong";
-	}
-	else {
-		return msg;
-	}
+const std::string &MyException::getMsg() throw() {
+	return msg;
 }
 
 // * NESTED_CLASSES ********************************************************* //

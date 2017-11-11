@@ -13,7 +13,8 @@
 CC = @clang++
 CFLAGS = -Wall -Wextra -Werror
 
-OBJ = main.o MyException.o Kernel.o UserModule.o Monitor.o
+OBJ =	main.o MyException.o Kernel.o UserModule.o Monitor.o Line.o\
+		NcursesDisplay.o
 
 NAME = ft_gkrellm
 

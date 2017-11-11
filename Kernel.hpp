@@ -21,9 +21,9 @@ class Kernel {
 
 public:
 
-	static std::string & getKernelInfoByName(const std::string & name);
+	static std::string getKernelInfoByName(const std::string & name);
 
-	static std::string & getUserName();
+	static std::string getUserName();
 
 private:
 

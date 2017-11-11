@@ -23,25 +23,41 @@ class Monitor {
 
 public:
 
-	Monitor();
+	typedef std::vector<IMonitorModule *> Modules;
+	typedef Modules::iterator iterator;
 
-	Monitor(Monitor const &copy);
+	Monitor();
 
 	~Monitor();
 
-	Monitor &operator=(Monitor const &assign);
+	void draw();
 
-	void	refresh();
+	void refreshAll();
 
-	void	addModule(IMonitorModule * module);
+	void addModule(IMonitorModule *module);
 
-	void	deleteModule(IMonitorModule * module);
+	void deleteModule(IMonitorModule *module);
+
+	void getMaxYX(int & h, int & w);
+
+	int getWidth() const;
+
+	int getHeight() const;
+
+	void setDisplay(IMonitorDisplay *display);
+
+	IMonitorDisplay *getDisplay() const;
 
 private:
 
 	int width;
 	int height;
-	std::vector<IMonitorModule *> modules;
+	Modules modules;
+	IMonitorDisplay *display;
+
+	Monitor(Monitor const &copy);
+
+	Monitor &operator=(Monitor const &assign);
 
 };
 
