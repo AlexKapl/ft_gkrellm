@@ -43,4 +43,5 @@ cmake-build-debug/
 
 resources/
 done
-ft_retro
+ft_gkrellm
+SFML/

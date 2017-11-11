@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Monitor.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akaplyar <akaplyar@student.unit.ua>        +#+  +:+       +#+        */
+/*   By: hshakula <hshakula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 18:53:00 by akaplyar          #+#    #+#             */
-/*   Updated: 2017/11/10 18:53:00 by akaplyar         ###   ########.fr       */
+/*   Updated: 2017/11/11 16:36:59 by hshakula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,10 @@ void Monitor::deleteModule(IMonitorModule *module) {
 void Monitor::draw() {
 	IMonitorModule * module;
 	iterator end = modules.end();
+
+	display->clear();
+
+	display->processInput();
 
 	for (Modules::iterator it = modules.begin(); it != end; ++it) {
 		module = *it;

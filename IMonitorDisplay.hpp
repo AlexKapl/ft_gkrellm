@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   IMonitorDisplay.hpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akaplyar <akaplyar@student.unit.ua>        +#+  +:+       +#+        */
+/*   By: hshakula <hshakula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:37:00 by akaplyar          #+#    #+#             */
-/*   Updated: 2017/11/10 16:37:00 by akaplyar         ###   ########.fr       */
+/*   Updated: 2017/11/11 16:33:19 by hshakula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,12 @@ public:
 	virtual void getMaxYX(int &h, int &w) = 0;
 
 	virtual int getWindowNum(int h, int w, int y, int x) = 0;
+
+	virtual void clear() = 0;
+
+	virtual bool isOpen() = 0;
+
+	virtual void processInput() = 0;
 
 private:
 

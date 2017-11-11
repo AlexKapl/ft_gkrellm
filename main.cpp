@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akaplyar <akaplyar@student.unit.ua>        +#+  +:+       +#+        */
+/*   By: hshakula <hshakula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:35:00 by akaplyar          #+#    #+#             */
-/*   Updated: 2017/11/10 16:35:00 by akaplyar         ###   ########.fr       */
+/*   Updated: 2017/11/11 16:37:10 by hshakula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,18 @@
 # include "Monitor.hpp"
 # include "UserModule.hpp"
 # include "NcursesDisplay.hpp"
+# include "sfmlDisplay.hpp"
 
 int main() {
-	int	g;
 	Monitor monitor;
 
-	monitor.setDisplay(new NcursesDisplay());
+	monitor.setDisplay(new sfmlDisplay());
 	monitor.addModule(new UserModule(monitor.getHeight(), monitor));
-	monitor.draw();
-	do {
-		g = getch();
+
+	while (monitor.isOpen())
+	{
+		monitor.draw();
 	}
-	while (g != 27);
-	endwin();
+	
 	return (0);
 }

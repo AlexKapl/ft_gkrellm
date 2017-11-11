@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   NcursesDisplay.cpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akaplyar <akaplyar@student.unit.ua>        +#+  +:+       +#+        */
+/*   By: hshakula <hshakula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/11 12:19:00 by akaplyar          #+#    #+#             */
-/*   Updated: 2017/11/11 12:19:00 by akaplyar         ###   ########.fr       */
+/*   Updated: 2017/11/11 16:37:43 by hshakula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
