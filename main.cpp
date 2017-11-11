@@ -10,11 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "ft_gkrellm.h"
-# include "Monitor.hpp"
-# include "UserModule.hpp"
-# include "NcursesDisplay.hpp"
-# include "OsModule.hpp"
+#include "ft_gkrellm.h"
+#include "Monitor.hpp"
+#include "UserModule.hpp"
+#include "NcursesDisplay.hpp"
+#include "OsModule.hpp"
+#include "DateModule.hpp"
 
 int main() {
 	int	g;
@@ -23,6 +24,7 @@ int main() {
 	monitor.setDisplay(new NcursesDisplay());
 	monitor.addModule(new UserModule(monitor.getHeight(), monitor));
 	monitor.addModule(new OsModule(monitor.getHeight(), monitor));
+	monitor.addModule(new DateModule(monitor.getHeight(), monitor));
 	monitor.draw();
 	do {
 		g = getch();

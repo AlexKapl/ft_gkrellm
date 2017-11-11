@@ -6,7 +6,7 @@
 #    By: akaplyar <akaplyar@student.unit.ua>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/10/30 10:34:18 by akaplyar          #+#    #+#              #
-#    Updated: 2017/11/11 17:13:47 by akaplyar         ###   ########.fr        #
+#    Updated: 2017/11/11 17:58:57 by akaplyar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ CC = @clang++
 CFLAGS = -Wall -Wextra -Werror
 
 OBJ =	main.o MyException.o Kernel.o UserModule.o Monitor.o Line.o\
-		NcursesDisplay.o AModule.o OsModule.o
+		NcursesDisplay.o AModule.o OsModule.o DateModule.o
 
 NAME = ft_gkrellm
 

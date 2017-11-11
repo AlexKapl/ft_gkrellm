@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   OsModule.cpp                                       :+:      :+:    :+:   */
+/*   DateModule.cpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akaplyar <akaplyar@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/11 17:01:00 by akaplyar          #+#    #+#             */
-/*   Updated: 2017/11/11 17:01:00 by akaplyar         ###   ########.fr       */
+/*   Created: 2017/11/11 17:37:00 by akaplyar          #+#    #+#             */
+/*   Updated: 2017/11/11 17:37:00 by akaplyar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "OsModule.hpp"
+#include "DateModule.hpp"
+
 
 // * STATICS **************************************************************** //
 // * CONSTRUCTORS *********************************************************** //
 
-OsModule::OsModule(int height, Monitor &monitor) : AModule("Date") {
+DateModule::DateModule(int height, Monitor &monitor) : AModule("Os") {
 	int w, h;
 	IMonitorDisplay *display;
 
-	lines.push_back(new Line("Type:", ""));
-	lines.push_back(new Line("Release:", ""));
+	lines.push_back(new Line("", ""));
 	this->height = static_cast<int>(lines.size() + 1);
 	this->refresh();
 	display = monitor.getDisplay();
@@ -39,11 +39,11 @@ OsModule::OsModule(int height, Monitor &monitor) : AModule("Date") {
 
 // * DESTRUCTORS ************************************************************ //
 
-OsModule::~OsModule() {}
+DateModule::~DateModule() {}
 
 // * OPERATORS ************************************************************** //
 
-OsModule &OsModule::operator=(OsModule const &assign) {
+DateModule &DateModule::operator=(DateModule const &assign) {
 	if (this != &assign) {}
 	return (*this);
 }
@@ -52,14 +52,14 @@ OsModule &OsModule::operator=(OsModule const &assign) {
 // * SETTERS **************************************************************** //
 // * MEMBER FUNCTIONS / METHODS ********************************************* //
 
-void OsModule::refresh() {
-	int	s1, s2;
+void DateModule::refresh() {
+	time_t tim = time(NULL);
+	tm *t = localtime(&tim);
+	char str[80];
 
-	lines[Type]->setValue(Kernel::getKernelInfoByName("kern.ostype"));
-	s1 = lines[Type]->getSize();
-	lines[Release]->setValue(Kernel::getKernelInfoByName("kern.osrelease"));
-	s2 = lines[Release]->getSize();
-	width = (s1 > s2 ? s1 : s2);
+	strftime(str, 80, "[%F %X] ", t);
+	lines[2]->setValue(str);
+	width = lines[2]->getSize();
 }
 
 // * NESTED_CLASSES ********************************************************* //
