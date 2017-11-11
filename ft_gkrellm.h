@@ -14,17 +14,21 @@
 # define FT_GKRELLM_HPP
 
 # include <iostream>
+# include <sstream>
+# include <iomanip>
 # include <vector>
 # include <ncurses.h>
 # include <pwd.h>
 # include <unistd.h>
 # include <sys/types.h>
 # include <sys/sysctl.h>
+# include <mach/mach_types.h>
+# include <mach/mach_host.h>
 # include "MyException.hpp"
 
-# define WIN_H(x) ((x) + 4)
 # define TEXT 4
 # define BORDER 5
 # define TITLE 6
+# define COR(x) ((x) + 8)
 
 #endif
