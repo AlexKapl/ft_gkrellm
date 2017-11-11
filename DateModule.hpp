@@ -1,40 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   UserModule.hpp                                     :+:      :+:    :+:   */
+/*   DateModule.hpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akaplyar <akaplyar@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/10 19:05:00 by akaplyar          #+#    #+#             */
-/*   Updated: 2017/11/10 19:05:00 by akaplyar         ###   ########.fr       */
+/*   Created: 2017/11/11 17:37:00 by akaplyar          #+#    #+#             */
+/*   Updated: 2017/11/11 17:37:00 by akaplyar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#ifndef USERMODULE_HPP
-# define USERMODULE_HPP
+#ifndef DATEMODULE_HPP
+# define DATEMODULE_HPP
 
 #include "AModule.hpp"
 
-class UserModule : public AModule {
+class DateModule : public AModule {
 
 public:
 
-	UserModule(int height, Monitor & monitor);
+	DateModule(int height, Monitor & monitor);
 
-	~UserModule();
+	~DateModule();
 
 	void refresh();
 
 private:
 
-	enum info {Host = 2, User};
+	DateModule();
 
-	UserModule();
+	DateModule(DateModule const &copy);
 
-	UserModule(UserModule const &copy);
-
-	UserModule &operator=(UserModule const &assign);
+	DateModule &operator=(DateModule const &assign);
 
 };
 

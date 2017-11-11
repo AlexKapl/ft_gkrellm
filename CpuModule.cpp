@@ -1,26 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   UserModule.cpp                                     :+:      :+:    :+:   */
+/*   CpuModule.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akaplyar <akaplyar@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/10 19:05:00 by akaplyar          #+#    #+#             */
-/*   Updated: 2017/11/10 19:05:00 by akaplyar         ###   ########.fr       */
+/*   Created: 2017/11/11 19:02:00 by akaplyar          #+#    #+#             */
+/*   Updated: 2017/11/11 19:02:00 by akaplyar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "UserModule.hpp"
+#include "CpuModule.hpp"
+
 
 // * STATICS **************************************************************** //
 // * CONSTRUCTORS *********************************************************** //
 
-UserModule::UserModule(int height, Monitor &monitor) : AModule("User") {
+CpuModule::CpuModule(int height, Monitor &monitor) : AModule("CPU") {
 	int w, h;
 	IMonitorDisplay *display;
 
-	lines.push_back(new Line("Host:", ""));
-	lines.push_back(new Line("User:", ""));
+	lines.push_back(new Line("CPU:", Kernel::getKernelInfo(
+			"machdep.cpu.brand_string")));
+	lines.push_back(new Line("Cores:", Kernel::getKernelInfoInt(
+			"machdep.cpu.core_count")));
+	lines.push_back(new Line("", ""));
+	lines.push_back(new Line("", ""));
+	lines.push_back(new Line("", ""));
+	lines.push_back(new Line("", ""));
 	this->height = static_cast<int>(lines.size() + 1);
 	this->refresh();
 	display = monitor.getDisplay();
@@ -39,11 +46,11 @@ UserModule::UserModule(int height, Monitor &monitor) : AModule("User") {
 
 // * DESTRUCTORS ************************************************************ //
 
-UserModule::~UserModule() {}
+CpuModule::~CpuModule() {}
 
 // * OPERATORS ************************************************************** //
 
-UserModule &UserModule::operator=(UserModule const &assign) {
+CpuModule &CpuModule::operator=(CpuModule const &assign) {
 	if (this != &assign) {}
 	return (*this);
 }
@@ -52,14 +59,15 @@ UserModule &UserModule::operator=(UserModule const &assign) {
 // * SETTERS **************************************************************** //
 // * MEMBER FUNCTIONS / METHODS ********************************************* //
 
-void UserModule::refresh() {
-	int s1, s2;
+void CpuModule::refresh() {
+	int size;
 
-	lines[Host]->setValue(Kernel::getKernelInfo("kern.hostname"));
-	s1 = lines[Host]->getSize();
-	lines[User]->setValue(Kernel::getUserName());
-	s2 = lines[User]->getSize();
-	width = (s1 > s2 ? s1 : s2);
+	for (int i = 4; i < 8; i++) {
+		lines[i]->setValue(Kernel::getCoreInfo(i - 4));
+		size = lines[i]->getSize();
+		if (width < size)
+			width = size;
+	}
 }
 
 // * NESTED_CLASSES ********************************************************* //

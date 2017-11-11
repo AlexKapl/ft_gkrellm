@@ -1,40 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   UserModule.hpp                                     :+:      :+:    :+:   */
+/*   CpuModule.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akaplyar <akaplyar@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/10 19:05:00 by akaplyar          #+#    #+#             */
-/*   Updated: 2017/11/10 19:05:00 by akaplyar         ###   ########.fr       */
+/*   Created: 2017/11/11 19:02:00 by akaplyar          #+#    #+#             */
+/*   Updated: 2017/11/11 19:02:00 by akaplyar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#ifndef USERMODULE_HPP
-# define USERMODULE_HPP
+#ifndef CPUMODULE_HPP
+# define CPUMODULE_HPP
+
 
 #include "AModule.hpp"
 
-class UserModule : public AModule {
+class CpuModule : public AModule {
 
 public:
 
-	UserModule(int height, Monitor & monitor);
+	CpuModule(int height, Monitor & monitor);
 
-	~UserModule();
+	~CpuModule();
 
 	void refresh();
 
 private:
 
-	enum info {Host = 2, User};
+	enum info {Brand = 2, Info};
 
-	UserModule();
+	CpuModule();
 
-	UserModule(UserModule const &copy);
+	CpuModule(CpuModule const &copy);
 
-	UserModule &operator=(UserModule const &assign);
+	CpuModule &operator=(CpuModule const &assign);
 
 };
 
