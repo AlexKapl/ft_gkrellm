@@ -17,7 +17,7 @@
 
 
 AModule::AModule(const std::string &title) :
-		win(0), width(0), height(WIN_H(2)), lines() {
+		win(0), width(0), height(), lines() {
 	lines.push_back(new Line("", title));
 	lines.push_back(new Line("", ""));
 }

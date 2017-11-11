@@ -28,7 +28,7 @@ public:
 
 private:
 
-	enum info {Title, Empty, Host, User};
+	enum info {Host = 2, User};
 
 	UserModule();
 

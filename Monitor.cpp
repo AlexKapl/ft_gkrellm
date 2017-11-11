@@ -63,6 +63,7 @@ void Monitor::setDisplay(IMonitorDisplay *display) {
 
 void Monitor::addModule(IMonitorModule *module) {
 	modules.push_back(module);
+	height += module->getHeight();
 }
 
 void Monitor::deleteModule(IMonitorModule *module) {
@@ -75,7 +76,7 @@ void Monitor::draw() {
 	IMonitorModule * module;
 	iterator end = modules.end();
 
-	for (Modules::iterator it = modules.begin(); it != end; ++it) {
+	for (iterator it = modules.begin(); it != end; ++it) {
 		module = *it;
 		module->draw(display);
 	}
@@ -86,14 +87,10 @@ void Monitor::refreshAll() {
 	IMonitorModule * module;
 	iterator end = modules.end();
 
-	for (Modules::iterator it = modules.begin(); it != end; ++it) {
+	for (iterator it = modules.begin(); it != end; ++it) {
 		module = *it;
 		module->refresh();
 	}
-}
-
-void Monitor::getMaxYX(int & h, int & w) {
-	display->getMaxYX(h, w);
 }
 
 // * NESTED_CLASSES ********************************************************* //

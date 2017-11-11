@@ -38,8 +38,6 @@ public:
 
 	void deleteModule(IMonitorModule *module);
 
-	void getMaxYX(int & h, int & w);
-
 	int getWidth() const;
 
 	int getHeight() const;

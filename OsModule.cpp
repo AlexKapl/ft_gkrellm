@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   UserModule.cpp                                     :+:      :+:    :+:   */
+/*   OsModule.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akaplyar <akaplyar@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/10 19:05:00 by akaplyar          #+#    #+#             */
-/*   Updated: 2017/11/10 19:05:00 by akaplyar         ###   ########.fr       */
+/*   Created: 2017/11/11 17:01:00 by akaplyar          #+#    #+#             */
+/*   Updated: 2017/11/11 17:01:00 by akaplyar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "UserModule.hpp"
+#include "OsModule.hpp"
 
 // * STATICS **************************************************************** //
 // * CONSTRUCTORS *********************************************************** //
 
-UserModule::UserModule(int height, Monitor &monitor) : AModule("User") {
+OsModule::OsModule(int height, Monitor &monitor) : AModule("Os") {
 	int w, h;
 	IMonitorDisplay *display;
 
-	lines.push_back(new Line("Host:", ""));
-	lines.push_back(new Line("User:", ""));
+	lines.push_back(new Line("Type:", ""));
+	lines.push_back(new Line("Release:", ""));
 	this->height = static_cast<int>(lines.size() + 1);
 	this->refresh();
 	display = monitor.getDisplay();
@@ -39,11 +39,11 @@ UserModule::UserModule(int height, Monitor &monitor) : AModule("User") {
 
 // * DESTRUCTORS ************************************************************ //
 
-UserModule::~UserModule() {}
+OsModule::~OsModule() {}
 
 // * OPERATORS ************************************************************** //
 
-UserModule &UserModule::operator=(UserModule const &assign) {
+OsModule &OsModule::operator=(OsModule const &assign) {
 	if (this != &assign) {}
 	return (*this);
 }
@@ -52,13 +52,13 @@ UserModule &UserModule::operator=(UserModule const &assign) {
 // * SETTERS **************************************************************** //
 // * MEMBER FUNCTIONS / METHODS ********************************************* //
 
-void UserModule::refresh() {
-	int s1, s2;
+void OsModule::refresh() {
+	int	s1, s2;
 
-	lines[Host]->setValue(Kernel::getKernelInfoByName("kern.hostname"));
-	s1 = lines[Host]->getSize();
-	lines[User]->setValue(Kernel::getUserName());
-	s2 = lines[User]->getSize();
+	lines[Type]->setValue(Kernel::getKernelInfoByName("kern.ostype"));
+	s1 = lines[Type]->getSize();
+	lines[Release]->setValue(Kernel::getKernelInfoByName("kern.osrelease"));
+	s2 = lines[Release]->getSize();
 	width = (s1 > s2 ? s1 : s2);
 }
 

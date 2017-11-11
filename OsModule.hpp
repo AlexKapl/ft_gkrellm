@@ -1,42 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   IMonitorModule.hpp                                 :+:      :+:    :+:   */
+/*   OsModule.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akaplyar <akaplyar@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/10 16:36:00 by akaplyar          #+#    #+#             */
-/*   Updated: 2017/11/10 16:36:00 by akaplyar         ###   ########.fr       */
+/*   Created: 2017/11/11 17:01:00 by akaplyar          #+#    #+#             */
+/*   Updated: 2017/11/11 17:01:00 by akaplyar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#ifndef IMONITORMODULE_HPP
-# define IMONITORMODULE_HPP
+#ifndef OSMODULE_HPP
+# define OSMODULE_HPP
 
-# include "ft_gkrellm.h"
+#include "AModule.hpp"
 
-class IMonitorDisplay;
-
-class IMonitorModule {
+class OsModule : public AModule {
 
 public:
 
-	IMonitorModule() {}
+	OsModule(int height, Monitor & monitor);
 
-	virtual ~IMonitorModule() {}
+	~OsModule();
 
-	virtual void refresh() = 0;
-
-	virtual void draw(IMonitorDisplay * display) = 0;
-
-	virtual int getHeight() const = 0;
+	void refresh();
 
 private:
 
-	IMonitorModule(const IMonitorModule &) {};
+	enum info {Type = 2, Release};
 
-	IMonitorModule &operator=(const IMonitorModule &rhs);
+	OsModule();
+
+	OsModule(OsModule const &copy);
+
+	OsModule &operator=(OsModule const &assign);
 
 };
 
