@@ -6,7 +6,7 @@
 /*   By: hshakula <hshakula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 18:53:00 by akaplyar          #+#    #+#             */
-/*   Updated: 2017/11/11 22:02:24 by hshakula         ###   ########.fr       */
+/*   Updated: 2017/11/11 22:33:32 by hshakula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void Monitor::draw() {
 
 	for (Modules::iterator it = modules.begin(); it != end; ++it) {
 		module = *it;
+		refreshAll();
 		module->draw(display);
 	}
 	display->draw();

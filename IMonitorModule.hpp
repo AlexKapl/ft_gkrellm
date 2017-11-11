@@ -6,7 +6,7 @@
 /*   By: hshakula <hshakula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:36:00 by akaplyar          #+#    #+#             */
-/*   Updated: 2017/11/11 22:02:55 by hshakula         ###   ########.fr       */
+/*   Updated: 2017/11/11 22:05:06 by hshakula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ public:
 
 	virtual void draw(IMonitorDisplay * display) = 0;
 
-	virtual void getHeight() = 0;
+	virtual int getHeight() const = 0;
 
 private:
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   OsModule.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akaplyar <akaplyar@student.unit.ua>        +#+  +:+       +#+        */
+/*   By: hshakula <hshakula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/11 17:01:00 by akaplyar          #+#    #+#             */
-/*   Updated: 2017/11/11 17:01:00 by akaplyar         ###   ########.fr       */
+/*   Updated: 2017/11/11 22:34:09 by hshakula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 // * STATICS **************************************************************** //
 // * CONSTRUCTORS *********************************************************** //
 
-OsModule::OsModule(int height, Monitor &monitor) : AModule("Date") {
+OsModule::OsModule(int height, Monitor &monitor) : AModule("OS") {
 	int w, h;
 	IMonitorDisplay *display;
 

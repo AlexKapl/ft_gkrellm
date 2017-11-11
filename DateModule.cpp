@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   DateModule.cpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akaplyar <akaplyar@student.unit.ua>        +#+  +:+       +#+        */
+/*   By: hshakula <hshakula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/11 17:37:00 by akaplyar          #+#    #+#             */
-/*   Updated: 2017/11/11 17:37:00 by akaplyar         ###   ########.fr       */
+/*   Updated: 2017/11/11 22:34:24 by hshakula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@
 // * STATICS **************************************************************** //
 // * CONSTRUCTORS *********************************************************** //
 
-DateModule::DateModule(int height, Monitor &monitor) : AModule("Os") {
+DateModule::DateModule(int height, Monitor &monitor) : AModule("Date") {
 	int w, h;
 	IMonitorDisplay *display;
 
-	lines.push_back(new Line("", ""));
+	lines.push_back(new Line("Date", ""));
 	this->height = static_cast<int>(lines.size() + 1);
 	this->refresh();
 	display = monitor.getDisplay();

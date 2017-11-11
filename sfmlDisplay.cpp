@@ -47,12 +47,17 @@ void sfmlDisplay::drawBorder(int num) {
 	window->setView(*views[num]);
 
 	sf::Vector2f size = views[num]->getSize();
-	sf::RectangleShape 	leftSide  = createLine(10, size.y, 0, 0, 0),
-						rightSide = createLine(10, size.y, size.x - 10, 0, 0),
 
-						upSide    = createLine(40, size.x, 0, 40, -90),
-						upSide1	  = createLine(10, size.x, 0, 50, -90),
-						downSide  = createLine(10, size.x, 0, size.y, -90);
+	sf::Vector2f center = views[num]->getCenter();
+	int dx = center.x - size.x / 2;
+	int dy = center.y - size.y / 2;
+
+	sf::RectangleShape 	leftSide  = createLine(10, size.y, dx, dy, 0),
+						rightSide = createLine(10, size.y, size.x - 10 + dx, dy, 0),
+
+						upSide    = createLine(40, size.x, dx, 40 + dy, -90),
+						upSide1	  = createLine(10, size.x, dx, 50 + dy, -90),
+						downSide  = createLine(10, size.x, dx, size.y + dy, -90);
 
 	leftSide.setFillColor(sf::Color(192, 192, 192));
 	rightSide.setFillColor(sf::Color(192, 192, 192));
@@ -70,6 +75,11 @@ void sfmlDisplay::drawBorder(int num) {
 void sfmlDisplay::drawTitle(int num, int x, Line * line) {
 	window->setView(*views[num]);
 
+	sf::Vector2f size = views[num]->getSize();
+	sf::Vector2f center = views[num]->getCenter();
+	int dx = center.x - size.x / 2;
+	int dy = center.y - size.y / 2;
+
 	sf::Font font;
 	font.loadFromFile("OpenSans.ttf");
 	sf::Text title;
@@ -77,7 +87,7 @@ void sfmlDisplay::drawTitle(int num, int x, Line * line) {
 	title.setString(line->getValue());
 	title.setColor(sf::Color(112, 147, 219));
 	x = 1600 / 2;
-	title.setPosition(x, 0);
+	title.setPosition(x + dx, dy);
 
 	window->draw(title);
 }
@@ -88,6 +98,11 @@ void sfmlDisplay::drawLine(int num, int y, int x, Line * line) {
 	sf::Font font;
 	font.loadFromFile("OpenSans.ttf");
 
+	sf::Vector2f size = views[num]->getSize();
+	sf::Vector2f center = views[num]->getCenter();
+	int dx = center.x - size.x / 2;
+	int dy = center.y - size.y / 2;
+
 	sf::Text key, value;
 	key.setString(line->getName());
 	value.setString(line->getValue());
@@ -95,8 +110,8 @@ void sfmlDisplay::drawLine(int num, int y, int x, Line * line) {
 	value.setFont(font);
 	key.setColor(sf::Color(255, 255, 224));
 	value.setColor(sf::Color(255, 255, 153));
-	key.setPosition(x + 10, y * 32);
-	value.setPosition(1600 / 2, y * 32);
+	key.setPosition(x + 10 + dx, y * 32 + dy);
+	value.setPosition(1600 / 2 + dx, y * 32 + dy);
 
 	window->draw(key);
 	window->draw(value);
@@ -108,15 +123,18 @@ void sfmlDisplay::getMaxYX(int &h, int &w) {
 }
 
 int sfmlDisplay::getWindowNum(int h, int w, int y, int x) {
-	x++; y++; w++;h++;
-	sf::View *view = new sf::View(sf::FloatRect(0, 0,
+	y *= 32;
+	h *= 32;
+	sf::View *view = new sf::View(sf::FloatRect(x, y,
 												static_cast<float>(w),
-												static_cast<float>(h * 24)));
-	view->setViewport(sf::FloatRect(static_cast<float>(x / 1600),
-												static_cast<float>(0 / 1600),
-												static_cast<float>(w / 1600),
-												static_cast<float>(h * 24) / 1600));
+												static_cast<float>(h)));
+	// std::cout << h << " " << w << " " << y << " " << x << std::endl;
+	float xf = static_cast<float>(x) / 1600;
+	float yf = static_cast<float>(y) / 1600;
+	view->setViewport(sf::FloatRect(xf, yf,
+												static_cast<float>(w) / 1600,
+												static_cast<float>(h) / 1600));
 	views.push_back(view);
-	std::cout << h * 32 << " " << w << " " << y << " " << x << std::endl;
+	// std::cout << h << " " << w << " " << yf << " " << xf << std::endl;
 	return (viewCount++);
 }
