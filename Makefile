@@ -6,14 +6,14 @@
 #    By: hshakula <hshakula@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/10/30 10:34:18 by akaplyar          #+#    #+#              #
-#    Updated: 2017/11/11 15:52:30 by hshakula         ###   ########.fr        #
+#    Updated: 2017/11/11 20:05:44 by hshakula         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = ft_gkrellm
 
 SRCSFILES = main.cpp MyException.cpp Kernel.cpp UserModule.cpp Monitor.cpp Line.cpp\
-		NcursesDisplay.cpp
+		sfmlDisplay.cpp
 
 SRCPATH = ./
 OBJPATH = obj/
@@ -22,9 +22,12 @@ INCLUDES = -I $(SRCPATH) -I $(shell pwd)/SFML/include
 
 LDENV = DYLD_FRAMEWORK_PATH="$(shell pwd)/SFML/Frameworks"
 
-LIBS =	-framework sfml-graphics -framework sfml-window -framework sfml-system\
-		-F SFML/Frameworks -lncurses -lpthread
-CFLAGS = -Werror -Wall -Wextra -g
+LIBS =	-framework SFML -framework sfml-window -framework sfml-system -framework sfml-graphics\
+		-lncurses
+# LIBS = -lncurses SFML/lib/libsfml-audio.2.2.0.dylib SFML/lib/libsfml-graphics.2.2.0.dylib \
+# 		SFML/lib/libsfml-network.2.2.0.dylib SFML/lib/libsfml-system.2.2.0.dylib \
+# 		SFML/lib/libsfml-window.2.2.0.dylib
+CFLAGS = -Werror -Wall -Wextra -g -F SFML/Frameworks
 RM = rm -rf
 
 SRC = $(addprefix $(SRCPATH),$(SRCSFILES))
@@ -34,7 +37,7 @@ OBJECTS = $(SRC:$(SRCPATH)%.cpp=$(OBJPATH)%.o)
 all: $(NAME)
 
 $(NAME): $(OBJECTS)
-	$(CC) -o $@ $(CFLAGS) $(OBJECTS) $(LIBS)
+	$(CC) $(CFLAGS) $(OBJECTS) $(LIBS) -o $@
 
 $(OBJECTS): $(OBJPATH)%.o : $(SRCPATH)%.cpp
 	@mkdir -p $(dir $@)

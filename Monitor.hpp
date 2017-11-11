@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Monitor.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akaplyar <akaplyar@student.unit.ua>        +#+  +:+       +#+        */
+/*   By: hshakula <hshakula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 18:53:00 by akaplyar          #+#    #+#             */
-/*   Updated: 2017/11/10 18:53:00 by akaplyar         ###   ########.fr       */
+/*   Updated: 2017/11/11 18:50:38 by hshakula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ public:
 	~Monitor();
 
 	void draw();
+
+	bool isOpen();
 
 	void refreshAll();
 

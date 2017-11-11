@@ -36,7 +36,7 @@ UserModule::UserModule(int height, Monitor & monitor) :
 	if (w > width)
 		width = w;
 	win = display->getWindowNum(this->height, width, height, 0);
-	display->drawBorder(win);
+	// display->drawBorder(win);
 }
 
 
@@ -85,12 +85,11 @@ void UserModule::refresh() {
 }
 
 void UserModule::draw(IMonitorDisplay *display) {
+	display->drawBorder(win);
 	display->drawTitle(win, 0, lines[Title]);
 	for (int i = 1; i < 4; i++) {
 		display->drawLine(win, i, 0, lines[i]);
 	}
-//	display->drawLine(win, 2, 0, lines[Host]);
-//	display->drawLine(win, 3, 0, lines[User]);
 }
 
 // * NESTED_CLASSES ********************************************************* //

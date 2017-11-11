@@ -45,3 +45,5 @@ resources/
 done
 ft_gkrellm
 SFML/
+
+*.framework

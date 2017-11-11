@@ -6,7 +6,7 @@
 /*   By: hshakula <hshakula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 18:53:00 by akaplyar          #+#    #+#             */
-/*   Updated: 2017/11/11 16:36:59 by hshakula         ###   ########.fr       */
+/*   Updated: 2017/11/11 20:48:39 by hshakula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ void Monitor::draw() {
 	iterator end = modules.end();
 
 	display->clear();
-
 	display->processInput();
 
 	for (Modules::iterator it = modules.begin(); it != end; ++it) {
@@ -94,6 +93,10 @@ void Monitor::refreshAll() {
 		module = *it;
 		module->refresh();
 	}
+}
+
+bool Monitor::isOpen() {
+	return display->isOpen();
 }
 
 void Monitor::getMaxYX(int & h, int & w) {

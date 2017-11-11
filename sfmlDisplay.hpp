@@ -8,6 +8,9 @@ class sfmlDisplay : public IMonitorDisplay
 {
 public:
 
+	typedef std::vector<sf::View *> Views;
+	typedef Views::iterator iterator;
+
 	sfmlDisplay();
 	~sfmlDisplay();
 
@@ -30,13 +33,15 @@ public:
 	void processInput();
 
 private:
+	sf::RectangleShape createLine(int w, int h, int x, int y, int rotate);
+
 	const sf::ContextSettings settings;
 
-	int windowCount;
+	int viewCount;
 
-	Windows windows;
+	Views views;
 
-	sf::RenderWindow window;
+	sf::RenderWindow *window;
 
 	sfmlDisplay(sfmlDisplay const &s);
 	sfmlDisplay &operator=(sfmlDisplay const &s);
