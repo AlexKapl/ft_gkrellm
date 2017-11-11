@@ -1,34 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_gkrellm.h                                       :+:      :+:    :+:   */
+/*   CpuModule.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akaplyar <akaplyar@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/10 19:06:00 by akaplyar          #+#    #+#             */
-/*   Updated: 2017/11/10 19:06:00 by akaplyar         ###   ########.fr       */
+/*   Created: 2017/11/11 19:02:00 by akaplyar          #+#    #+#             */
+/*   Updated: 2017/11/11 19:02:00 by akaplyar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_GKRELLM_HPP
-# define FT_GKRELLM_HPP
 
-# include <iostream>
-# include <sstream>
-# include <iomanip>
-# include <vector>
-# include <ncurses.h>
-# include <pwd.h>
-# include <unistd.h>
-# include <sys/types.h>
-# include <sys/sysctl.h>
-# include <mach/mach_types.h>
-# include <mach/mach_host.h>
-# include "MyException.hpp"
+#ifndef CPUMODULE_HPP
+# define CPUMODULE_HPP
 
-# define TEXT 4
-# define BORDER 5
-# define TITLE 6
-# define COR(x) ((x) + 8)
+
+#include "AModule.hpp"
+
+class CpuModule : public AModule {
+
+public:
+
+	CpuModule(int height, Monitor & monitor);
+
+	~CpuModule();
+
+	void refresh();
+
+private:
+
+	enum info {Brand = 2, Info};
+
+	CpuModule();
+
+	CpuModule(CpuModule const &copy);
+
+	CpuModule &operator=(CpuModule const &assign);
+
+};
+
 
 #endif

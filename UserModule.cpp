@@ -55,7 +55,7 @@ UserModule &UserModule::operator=(UserModule const &assign) {
 void UserModule::refresh() {
 	int s1, s2;
 
-	lines[Host]->setValue(Kernel::getKernelInfoByName("kern.hostname"));
+	lines[Host]->setValue(Kernel::getKernelInfo("kern.hostname"));
 	s1 = lines[Host]->getSize();
 	lines[User]->setValue(Kernel::getUserName());
 	s2 = lines[User]->getSize();

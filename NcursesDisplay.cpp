@@ -32,6 +32,10 @@ NcursesDisplay::NcursesDisplay() : windowCount(0), windows() {
 	init_pair(BORDER, COLOR_BLACK, COLOR_MAGENTA);
 	init_pair(TITLE, COLOR_WHITE, COLOR_MAGENTA);
 	init_pair(7, COLOR_YELLOW, COLOR_BLACK);
+	init_pair(8, COLOR_BLACK, COLOR_GREEN);
+	init_pair(9, COLOR_BLACK, COLOR_RED);
+	init_pair(10, COLOR_BLACK, COLOR_CYAN);
+	init_pair(11, COLOR_BLACK, COLOR_YELLOW);
 	refresh();
 }
 

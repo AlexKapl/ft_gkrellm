@@ -16,6 +16,7 @@
 #include "NcursesDisplay.hpp"
 #include "OsModule.hpp"
 #include "DateModule.hpp"
+#include "CpuModule.hpp"
 
 int main() {
 	int	g;
@@ -25,8 +26,10 @@ int main() {
 	monitor.addModule(new UserModule(monitor.getHeight(), monitor));
 	monitor.addModule(new OsModule(monitor.getHeight(), monitor));
 	monitor.addModule(new DateModule(monitor.getHeight(), monitor));
-	monitor.draw();
+	monitor.addModule(new CpuModule(monitor.getHeight(), monitor));
 	do {
+		monitor.refreshAll();
+		monitor.draw();
 		g = getch();
 	}
 	while (g != 27);
