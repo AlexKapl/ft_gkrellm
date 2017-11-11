@@ -17,10 +17,11 @@
 # include "IMonitorDisplay.hpp"
 
 
-class NcursesDisplay  : public IMonitorDisplay{
+class NcursesDisplay : public IMonitorDisplay {
 
 public:
 	typedef std::vector<WINDOW *> Windows;
+	typedef std::vector<PANEL *> Panels;
 	typedef Windows::iterator iterator;
 
 	NcursesDisplay();
@@ -29,11 +30,9 @@ public:
 
 	void draw();
 
-	void drawBorder(int num);
+	void drawTitle(int num, int x, Line *line);
 
-	void drawTitle(int num, int x, Line * line);
-
-	void drawLine(int num, int y, int x, Line * line);
+	void drawLine(int num, int y, int x, Line *line);
 
 	void getMaxYX(int &h, int &w);
 
@@ -41,9 +40,13 @@ public:
 
 private:
 
-	int		windowCount;
+	int windowCount;
 
 	Windows windows;
+
+	Panels panels;
+
+	void drawBorder(WINDOW *win);
 
 	void cleanLine(WINDOW *win, int y);
 

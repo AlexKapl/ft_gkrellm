@@ -36,7 +36,7 @@ public:
 
 	void addModule(IMonitorModule *module);
 
-	void deleteModule(IMonitorModule *module);
+	void hideModule(IMonitorModule *module);
 
 	int getWidth() const;
 

@@ -30,6 +30,7 @@ int main() {
 	do {
 		monitor.refreshAll();
 		monitor.draw();
+		monitor.
 		g = getch();
 	}
 	while (g != 27);

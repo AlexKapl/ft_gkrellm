@@ -66,7 +66,7 @@ void Monitor::addModule(IMonitorModule *module) {
 	height += module->getHeight();
 }
 
-void Monitor::deleteModule(IMonitorModule *module) {
+void Monitor::hideModule(IMonitorModule *module) {
 	modules.push_back(module);//////////////////////!!!!!!!!!!!!!!!!!!!!!!!!!
 }
 

@@ -15,12 +15,13 @@
 // * STATICS **************************************************************** //
 // * CONSTRUCTORS *********************************************************** //
 
-OsModule::OsModule(int height, Monitor &monitor) : AModule("Date") {
+OsModule::OsModule(int height, Monitor &monitor) : AModule("Os") {
 	int w, h;
 	IMonitorDisplay *display;
 
-	lines.push_back(new Line("Type:", ""));
-	lines.push_back(new Line("Release:", ""));
+	lines.push_back(new Line("Type:", Kernel::getKernelInfo("kern.ostype")));
+	lines.push_back(
+			new Line("Release:", Kernel::getKernelInfo("kern.osrelease")));
 	this->height = static_cast<int>(lines.size() + 1);
 	this->refresh();
 	display = monitor.getDisplay();
@@ -52,14 +53,6 @@ OsModule &OsModule::operator=(OsModule const &assign) {
 // * SETTERS **************************************************************** //
 // * MEMBER FUNCTIONS / METHODS ********************************************* //
 
-void OsModule::refresh() {
-	int	s1, s2;
-
-	lines[Type]->setValue(Kernel::getKernelInfo("kern.ostype"));
-	s1 = lines[Type]->getSize();
-	lines[Release]->setValue(Kernel::getKernelInfo("kern.osrelease"));
-	s2 = lines[Release]->getSize();
-	width = (s1 > s2 ? s1 : s2);
-}
+void OsModule::refresh() {}
 
 // * NESTED_CLASSES ********************************************************* //

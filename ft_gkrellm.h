@@ -18,6 +18,7 @@
 # include <iomanip>
 # include <vector>
 # include <ncurses.h>
+# include <panel.h>
 # include <pwd.h>
 # include <unistd.h>
 # include <sys/types.h>

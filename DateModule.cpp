@@ -16,13 +16,14 @@
 // * STATICS **************************************************************** //
 // * CONSTRUCTORS *********************************************************** //
 
-DateModule::DateModule(int height, Monitor &monitor) : AModule("Os") {
+DateModule::DateModule(int height, Monitor &monitor) : AModule("Date") {
 	int w, h;
 	IMonitorDisplay *display;
 
 	lines.push_back(new Line("", ""));
 	this->height = static_cast<int>(lines.size() + 1);
 	this->refresh();
+	width = lines[2]->getSize();
 	display = monitor.getDisplay();
 	display->getMaxYX(h, w);
 //	if ((h - height) < this->height) {
@@ -59,7 +60,6 @@ void DateModule::refresh() {
 
 	strftime(str, 80, "[%F %X] ", t);
 	lines[2]->setValue(str);
-	width = lines[2]->getSize();
 }
 
 // * NESTED_CLASSES ********************************************************* //

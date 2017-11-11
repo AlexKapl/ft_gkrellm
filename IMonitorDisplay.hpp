@@ -27,7 +27,9 @@ public:
 
 	virtual void draw() = 0;
 
-	virtual void drawBorder(int num) = 0;
+	virtual void drawBorder(WINDOW *win) = 0;
+
+	virtual void process_input() = 0;
 
 	virtual void drawTitle(int num, int x, Line * line) = 0;
 
