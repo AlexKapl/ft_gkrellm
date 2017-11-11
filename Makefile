@@ -6,14 +6,14 @@
 #    By: hshakula <hshakula@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/10/30 10:34:18 by akaplyar          #+#    #+#              #
-#    Updated: 2017/11/11 20:05:44 by hshakula         ###   ########.fr        #
+#    Updated: 2017/11/11 21:49:26 by hshakula         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = ft_gkrellm
 
 SRCSFILES = main.cpp MyException.cpp Kernel.cpp UserModule.cpp Monitor.cpp Line.cpp\
-		sfmlDisplay.cpp
+		sfmlDisplay.cpp OsModule.cpp
 
 SRCPATH = ./
 OBJPATH = obj/
