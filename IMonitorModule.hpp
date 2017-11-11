@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   IMonitorModule.hpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akaplyar <akaplyar@student.unit.ua>        +#+  +:+       +#+        */
+/*   By: hshakula <hshakula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:36:00 by akaplyar          #+#    #+#             */
-/*   Updated: 2017/11/10 16:36:00 by akaplyar         ###   ########.fr       */
+/*   Updated: 2017/11/11 22:02:55 by hshakula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ public:
 	virtual void refresh() = 0;
 
 	virtual void draw(IMonitorDisplay * display) = 0;
+
+	virtual void getHeight() = 0;
 
 private:
 

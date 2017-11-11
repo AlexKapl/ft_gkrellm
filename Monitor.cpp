@@ -6,7 +6,7 @@
 /*   By: hshakula <hshakula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 18:53:00 by akaplyar          #+#    #+#             */
-/*   Updated: 2017/11/11 20:48:39 by hshakula         ###   ########.fr       */
+/*   Updated: 2017/11/11 22:02:24 by hshakula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void Monitor::setDisplay(IMonitorDisplay *display) {
 
 void Monitor::addModule(IMonitorModule *module) {
 	modules.push_back(module);
+	height += module->getHeight();
 }
 
 void Monitor::deleteModule(IMonitorModule *module) {
