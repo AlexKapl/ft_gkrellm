@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   AModule.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akaplyar <akaplyar@student.unit.ua>        +#+  +:+       +#+        */
+/*   By: hshakula <hshakula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/11 16:25:00 by akaplyar          #+#    #+#             */
-/*   Updated: 2017/11/11 16:25:00 by akaplyar         ###   ########.fr       */
+/*   Updated: 2017/11/11 21:57:41 by hshakula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int AModule::getHeight() const {
 // * MEMBER FUNCTIONS / METHODS ********************************************* //
 
 void AModule::draw(IMonitorDisplay *display) {
+	display->drawBorder(win);
 	display->drawTitle(win, 0, lines[0]);
 	for (unsigned i = 1; i < lines.size(); i++) {
 		display->drawLine(win, i, 0, lines[i]);

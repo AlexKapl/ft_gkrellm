@@ -113,7 +113,7 @@ int sfmlDisplay::getWindowNum(int h, int w, int y, int x) {
 												static_cast<float>(w),
 												static_cast<float>(h * 24)));
 	view->setViewport(sf::FloatRect(static_cast<float>(x / 1600),
-												static_cast<float>((y) / 1600),
+												static_cast<float>(0 / 1600),
 												static_cast<float>(w / 1600),
 												static_cast<float>(h * 24) / 1600));
 	views.push_back(view);

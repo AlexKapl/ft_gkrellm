@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Line.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hshakula <hshakula@student.42.fr>          +#+  +:+       +#+        */
+/*   By: akaplyar <akaplyar@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 19:13:00 by akaplyar          #+#    #+#             */
-/*   Updated: 2017/11/11 20:26:55 by hshakula         ###   ########.fr       */
+/*   Updated: 2017/11/10 19:13:00 by akaplyar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,10 @@ public:
 	void setName(const std::string &name);
 
 	void setValue(const std::string &value);
+
+	int getLen() const;
+
+	int getSize() const;
 
 private:
 

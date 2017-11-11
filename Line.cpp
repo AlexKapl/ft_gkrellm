@@ -49,6 +49,14 @@ const std::string &Line::getValue() const {
 	return value;
 }
 
+int Line::getLen() const {
+	return len;
+}
+
+int Line::getSize() const {
+	return size;
+}
+
 // * SETTERS **************************************************************** //
 
 void Line::setName(const std::string &name) {
