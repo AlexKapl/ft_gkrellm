@@ -41,6 +41,10 @@ public:
 
 	void setValue(const std::string &value);
 
+	int getLen() const;
+
+	int getSize() const;
+
 private:
 
 	int	len;

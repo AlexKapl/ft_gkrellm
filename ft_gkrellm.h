@@ -22,7 +22,7 @@
 # include <sys/sysctl.h>
 # include "MyException.hpp"
 
-# define WIN_H(x) ((x) + 4)
+# define WIN_H(x) ((x) + 3)
 # define TEXT 4
 # define BORDER 5
 # define TITLE 6

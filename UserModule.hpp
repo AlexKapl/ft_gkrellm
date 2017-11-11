@@ -14,13 +14,9 @@
 #ifndef USERMODULE_HPP
 # define USERMODULE_HPP
 
-# include "IMonitorModule.hpp"
-# include "Monitor.hpp"
-# include "Kernel.hpp"
-# include "Line.hpp"
+#include "AModule.hpp"
 
-
-class UserModule : public IMonitorModule {
+class UserModule : public AModule {
 
 public:
 
@@ -30,27 +26,15 @@ public:
 
 	void refresh();
 
-	void draw(IMonitorDisplay * display);
-
-	int getWidth() const;
-
-	int getHeight() const;
-
 private:
 
 	enum info {Title, Empty, Host, User};
-
-	int win;
-	int width;
-	int height;
-	Line::Lines lines;
 
 	UserModule();
 
 	UserModule(UserModule const &copy);
 
 	UserModule &operator=(UserModule const &assign);
-
 
 };
 

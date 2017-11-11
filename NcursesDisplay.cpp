@@ -68,6 +68,7 @@ void NcursesDisplay::draw() {
 
 int NcursesDisplay::getWindowNum(int h, int w, int y, int x) {
 	windows.push_back(newwin(h, w, y, x));
+	drawBorder(windowCount);
 	return (windowCount++);
 }
 
@@ -76,9 +77,8 @@ void NcursesDisplay::getMaxYX(int &h, int &w) {
 }
 
 void NcursesDisplay::drawBorder(int num) {
-	WINDOW *win;
+	WINDOW *win = windows[num];
 
-	win = windows[num];
 	wattron(win, COLOR_PAIR(BORDER));
 	wborder(win, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
 	wattroff(win, COLOR_PAIR(BORDER));
@@ -86,25 +86,29 @@ void NcursesDisplay::drawBorder(int num) {
 }
 
 void NcursesDisplay::drawLine(int num, int y, int x, Line *line) {
-	WINDOW *win;
+	WINDOW *win = windows[num];
 
-	win = windows[num];
 	wattron(win, COLOR_PAIR(TEXT));
-	mvwprintw(win, y, x, "%s", line->getName().c_str());
-	x = (getmaxx(win) / 2);
+	this->cleanLine(win, y);
+	mvwprintw(win, y, 1, "%s", line->getName().c_str());
+	x = ((getmaxx(win) / 2) - line->getSize() / 2);
 	mvwprintw(win, y, x, "%s", line->getValue().c_str());
 	wattroff(win, COLOR_PAIR(TEXT));
 }
 
 void NcursesDisplay::drawTitle(int num, int x, Line *line) {
-	WINDOW *win;
+	WINDOW *win = windows[num];
 
-	win = windows[num];
 	wattron(win, COLOR_PAIR(TITLE));
-	x = (getmaxx(win) / 2);
+	this->cleanLine(win, 0);
+	x = ((getmaxx(win) / 2) - line->getSize() / 2);
 	mvwprintw(win, 0, x, "%s", line->getValue().c_str());
 	wattroff(win, COLOR_PAIR(TITLE));
 
+}
+
+void NcursesDisplay::cleanLine(WINDOW *win, int y) {
+	mvwhline(win, y, 1, ' ', getmaxx(win) - 2);
 }
 
 // * NESTED_CLASSES ********************************************************* //

@@ -45,6 +45,8 @@ private:
 
 	Windows windows;
 
+	void cleanLine(WINDOW *win, int y);
+
 	NcursesDisplay(NcursesDisplay const &copy);
 
 	NcursesDisplay &operator=(NcursesDisplay const &assign);

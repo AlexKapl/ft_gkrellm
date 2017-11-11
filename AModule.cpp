@@ -1,73 +1,67 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Line.cpp                                           :+:      :+:    :+:   */
+/*   AModule.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akaplyar <akaplyar@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/10 19:13:00 by akaplyar          #+#    #+#             */
-/*   Updated: 2017/11/10 19:13:00 by akaplyar         ###   ########.fr       */
+/*   Created: 2017/11/11 16:25:00 by akaplyar          #+#    #+#             */
+/*   Updated: 2017/11/11 16:25:00 by akaplyar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Line.hpp"
+#include "AModule.hpp"
 
 // * STATICS **************************************************************** //
 // * CONSTRUCTORS *********************************************************** //
 
-Line::Line() : len(0), size(0), name(), value() {}
 
-Line::Line(const std::string &name, const std::string &value) :
-		len(name.size()), size(value.size()), name(name), value(value) {}
-
-Line::Line(Line const &copy) :
-		len(copy.len), size(copy.size), name(copy.name), value(copy.value) {}
+AModule::AModule(const std::string &title) :
+		win(0), width(0), height(WIN_H(2)), lines() {
+	lines.push_back(new Line("", title));
+	lines.push_back(new Line("", ""));
+}
 
 // * DESTRUCTORS ************************************************************ //
 
-Line::~Line() {}
+AModule::~AModule() {
+	Line * line;
+	Line::iterator end = lines.end();
+
+	for (Line::iterator it = lines.begin(); it != end; ++it) {
+		line = *it;
+		delete(line);
+	}
+	lines.clear();
+//	delwin(win);
+}
 
 // * OPERATORS ************************************************************** //
 
-Line &Line::operator=(Line const &assign) {
+AModule &AModule::operator=(AModule const &assign) {
 	if (this != &assign) {
-		len = assign.len;
-		size = assign.size;
-		name = assign.name;
-		value = assign.value;
 	}
 	return (*this);
 }
 
 // * GETTERS **************************************************************** //
 
-const std::string &Line::getName() const {
-	return name;
+int AModule::getWidth() const {
+	return width;
 }
 
-const std::string &Line::getValue() const {
-	return value;
-}
-
-int Line::getLen() const {
-	return len;
-}
-
-int Line::getSize() const {
-	return size;
+int AModule::getHeight() const {
+	return height;
 }
 
 // * SETTERS **************************************************************** //
-
-void Line::setName(const std::string &name) {
-	this->name = name;
-	this->len = name.size();
-}
-
-void Line::setValue(const std::string &value) {
-	this->value = value;
-	this->size = value.size();
-}
-
 // * MEMBER FUNCTIONS / METHODS ********************************************* //
+
+void AModule::draw(IMonitorDisplay *display) {
+	display->drawTitle(win, 0, lines[0]);
+	for (unsigned i = 1; i < lines.size(); i++) {
+		display->drawLine(win, i, 0, lines[i]);
+	}
+}
+
 // * NESTED_CLASSES ********************************************************* //
