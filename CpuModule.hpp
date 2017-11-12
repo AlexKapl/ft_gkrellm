@@ -29,7 +29,7 @@ public:
 
 private:
 
-	enum info {Brand = 2, Info};
+	enum info {Brand = 2, Info, User, System};
 
 	CpuModule();
 

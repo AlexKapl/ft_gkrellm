@@ -6,7 +6,7 @@
 /*   By: hshakula <hshakula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/11 17:01:00 by akaplyar          #+#    #+#             */
-/*   Updated: 2017/11/11 22:34:09 by hshakula         ###   ########.fr       */
+/*   Updated: 2017/11/12 17:17:26 by hshakula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,13 @@ OsModule::OsModule(int height, Monitor &monitor) : AModule("OS") {
 	int w, h;
 	IMonitorDisplay *display;
 
-	lines.push_back(new Line("Type:", ""));
-	lines.push_back(new Line("Release:", ""));
+	lines.push_back(new Line("Type:", Kernel::getKernelInfo("kern.ostype")));
+	lines.push_back(
+			new Line("Release:", Kernel::getKernelInfo("kern.osrelease")));
 	this->height = static_cast<int>(lines.size() + 1);
 	this->refresh();
 	display = monitor.getDisplay();
 	display->getMaxYX(h, w);
-//	if ((h - height) < this->height) {
-//		throw MyException("Can't fit data in window. Please increase height");
-//	}
-//	else if (w < width) {
-//		throw MyException("Can't fit data in window. Please increase width");
-//	}
 	if (w > width)
 		width = w;
 	win = display->getWindowNum(this->height, this->width, height, 0);
@@ -52,14 +47,6 @@ OsModule &OsModule::operator=(OsModule const &assign) {
 // * SETTERS **************************************************************** //
 // * MEMBER FUNCTIONS / METHODS ********************************************* //
 
-void OsModule::refresh() {
-	int	s1, s2;
-
-	lines[Type]->setValue(Kernel::getKernelInfo("kern.ostype"));
-	s1 = lines[Type]->getSize();
-	lines[Release]->setValue(Kernel::getKernelInfo("kern.osrelease"));
-	s2 = lines[Release]->getSize();
-	width = (s1 > s2 ? s1 : s2);
-}
+void OsModule::refresh() {}
 
 // * NESTED_CLASSES ********************************************************* //

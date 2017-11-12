@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   IMonitorModule.hpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hshakula <hshakula@student.42.fr>          +#+  +:+       +#+        */
+/*   By: akaplyar <akaplyar@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:36:00 by akaplyar          #+#    #+#             */
-/*   Updated: 2017/11/11 22:05:06 by hshakula         ###   ########.fr       */
+/*   Updated: 2017/11/10 16:36:00 by akaplyar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

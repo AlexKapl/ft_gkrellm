@@ -2,6 +2,7 @@
 # define SFMLDISPLAY_HPP
 
 # include "IMonitorDisplay.hpp"
+# include "AnimatedSprite.hpp"
 # include "SFML/Graphics.hpp"
 
 class sfmlDisplay : public IMonitorDisplay
@@ -31,6 +32,8 @@ public:
 	bool isOpen();
 
 	void processInput();
+
+	void drawPony(int num, AnimatedSprite &animatedSprite);
 
 private:
 	sf::RectangleShape createLine(int w, int h, int x, int y, int rotate);

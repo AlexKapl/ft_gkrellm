@@ -6,7 +6,7 @@
 /*   By: hshakula <hshakula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 18:53:00 by akaplyar          #+#    #+#             */
-/*   Updated: 2017/11/12 14:40:21 by hshakula         ###   ########.fr       */
+/*   Updated: 2017/11/12 17:16:37 by hshakula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ Monitor::Monitor(Monitor const &) {}
 // * DESTRUCTORS ************************************************************ //
 
 Monitor::~Monitor() {
-	IMonitorModule * module;
+	IMonitorModule *module;
 	iterator end = modules.end();
 
 	for (Modules::iterator it = modules.begin(); it != end; ++it) {
@@ -30,6 +30,7 @@ Monitor::~Monitor() {
 		delete (module);
 	}
 	modules.clear();
+	delete (display);
 }
 
 // * OPERATORS ************************************************************** //
@@ -66,7 +67,7 @@ void Monitor::addModule(IMonitorModule *module) {
 	height += module->getHeight();
 }
 
-void Monitor::deleteModule(IMonitorModule *module) {
+void Monitor::hideModule(IMonitorModule *module) {
 	modules.push_back(module);//////////////////////!!!!!!!!!!!!!!!!!!!!!!!!!
 }
 
@@ -88,10 +89,10 @@ void Monitor::draw() {
 }
 
 void Monitor::refreshAll() {
-	IMonitorModule * module;
+	IMonitorModule *module;
 	iterator end = modules.end();
 
-	for (Modules::iterator it = modules.begin(); it != end; ++it) {
+	for (iterator it = modules.begin(); it != end; ++it) {
 		module = *it;
 		module->refresh();
 	}
@@ -101,8 +102,11 @@ bool Monitor::isOpen() {
 	return display->isOpen();
 }
 
-void Monitor::getMaxYX(int & h, int & w) {
-	display->getMaxYX(h, w);
+void Monitor::loop() {
+	while (isOpen()) {
+		// refreshAll();
+		draw();
+	}
 }
 
 // * NESTED_CLASSES ********************************************************* //

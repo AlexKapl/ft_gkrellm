@@ -27,6 +27,8 @@ public:
 
 	static std::string getCoreInfo(int core);
 
+	static std::string getTopInfo(const std::string &name);
+
 	static std::string getUserName();
 
 private:

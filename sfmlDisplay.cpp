@@ -2,7 +2,7 @@
 
 sfmlDisplay::sfmlDisplay() : settings(0, 0, 4),
 		viewCount(0), views(),
-		window(new sf::RenderWindow(sf::VideoMode(1600, 1600),
+		window(new sf::RenderWindow(sf::VideoMode(500, 2000),
 			   "ft_gkrellm",
 			   sf::Style::Default & (~(1 << 1)),
 			   settings))
@@ -188,7 +188,7 @@ void sfmlDisplay::drawTitle(int num, int x, Line * line) {
 	title.setFont(font);
 	title.setString(line->getValue());
 	title.setColor(sf::Color(112, 147, 219));
-	x = 1600 / 2;
+	x = 500 / 2;
 	title.setPosition(x + dx, dy);
 
 	window->draw(title);
@@ -213,15 +213,20 @@ void sfmlDisplay::drawLine(int num, int y, int x, Line * line) {
 	key.setColor(sf::Color(255, 255, 224));
 	value.setColor(sf::Color(255, 255, 153));
 	key.setPosition(x + 10 + dx, y * 32 + dy);
-	value.setPosition(1600 / 2 + dx, y * 32 + dy);
+	value.setPosition(250 / 2 + dx, y * 32 + dy);
 
 	window->draw(key);
 	window->draw(value);
 }
 
+void sfmlDisplay::drawPony(int num, AnimatedSprite &animatedSprite) {
+	window->setView(*views[num]);
+	window->draw(animatedSprite);
+}
+
 void sfmlDisplay::getMaxYX(int &h, int &w) {
-	h = 1600;
-	w = 1600;
+	h = 2000;
+	w = 500;
 }
 
 int sfmlDisplay::getWindowNum(int h, int w, int y, int x) {
@@ -231,11 +236,11 @@ int sfmlDisplay::getWindowNum(int h, int w, int y, int x) {
 												static_cast<float>(w),
 												static_cast<float>(h)));
 	// std::cout << h << " " << w << " " << y << " " << x << std::endl;
-	float xf = static_cast<float>(x) / 1600;
-	float yf = static_cast<float>(y) / 1600;
+	float xf = static_cast<float>(x) / 500;
+	float yf = static_cast<float>(y) / 2000;
 	view->setViewport(sf::FloatRect(xf, yf,
-												static_cast<float>(w) / 1600,
-												static_cast<float>(h) / 1600));
+												static_cast<float>(w) / 500,
+												static_cast<float>(h) / 2000));
 	views.push_back(view);
 	// std::cout << h << " " << w << " " << yf << " " << xf << std::endl;
 	return (viewCount++);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   DateModule.cpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hshakula <hshakula@student.42.fr>          +#+  +:+       +#+        */
+/*   By: akaplyar <akaplyar@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/11 17:37:00 by akaplyar          #+#    #+#             */
-/*   Updated: 2017/11/11 22:34:24 by hshakula         ###   ########.fr       */
+/*   Updated: 2017/11/11 17:37:00 by akaplyar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,10 @@ DateModule::DateModule(int height, Monitor &monitor) : AModule("Date") {
 	int w, h;
 	IMonitorDisplay *display;
 
-	lines.push_back(new Line("Date", ""));
+	lines.push_back(new Line("", ""));
 	this->height = static_cast<int>(lines.size() + 1);
 	this->refresh();
+	width = lines[2]->getSize();
 	display = monitor.getDisplay();
 	display->getMaxYX(h, w);
 //	if ((h - height) < this->height) {
@@ -59,7 +60,6 @@ void DateModule::refresh() {
 
 	strftime(str, 80, "[%F %X] ", t);
 	lines[2]->setValue(str);
-	width = lines[2]->getSize();
 }
 
 // * NESTED_CLASSES ********************************************************* //

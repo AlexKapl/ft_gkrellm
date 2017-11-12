@@ -6,7 +6,7 @@
 /*   By: hshakula <hshakula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:37:00 by akaplyar          #+#    #+#             */
-/*   Updated: 2017/11/12 14:39:46 by hshakula         ###   ########.fr       */
+/*   Updated: 2017/11/12 19:26:10 by hshakula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 
 # include "ft_gkrellm.h"
 # include "Line.hpp"
+# include "AnimatedSprite.hpp"
 
 class IMonitorDisplay {
 
@@ -43,12 +44,13 @@ public:
 
 	virtual void processInput() = 0;
 
+	virtual void drawPony(int, AnimatedSprite &) = 0;
+
 private:
 
 	IMonitorDisplay(const IMonitorDisplay &) {};
 
 	IMonitorDisplay &operator=(const IMonitorDisplay &rhs);
 };
-
 
 #endif

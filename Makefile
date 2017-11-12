@@ -6,14 +6,17 @@
 #    By: hshakula <hshakula@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/10/30 10:34:18 by akaplyar          #+#    #+#              #
-#    Updated: 2017/11/12 13:02:44 by hshakula         ###   ########.fr        #
+#    Updated: 2017/11/12 20:10:23 by hshakula         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = ft_gkrellm
 
 SRCSFILES = main.cpp MyException.cpp Kernel.cpp UserModule.cpp Monitor.cpp Line.cpp\
-		sfmlDisplay.cpp OsModule.cpp AModule.cpp DateModule.cpp CpuModule.cpp
+		sfmlDisplay.cpp OsModule.cpp AModule.cpp DateModule.cpp CpuModule.cpp \
+		PonyModule.cpp Animation.cpp AnimatedSprite.cpp\
+
+# NcursesDisplay.cpp
 
 SRCPATH = ./
 OBJPATH = obj/
