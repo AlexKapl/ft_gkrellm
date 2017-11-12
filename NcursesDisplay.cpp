@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   NcursesDisplay.cpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akaplyar <akaplyar@student.unit.ua>        +#+  +:+       +#+        */
+/*   By: hshakula <hshakula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/11 12:19:00 by akaplyar          #+#    #+#             */
-/*   Updated: 2017/11/11 12:19:00 by akaplyar         ###   ########.fr       */
+/*   Updated: 2017/11/12 22:12:24 by hshakula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "NcursesDisplay.hpp"
+#include "Monitor.hpp"
 
 // * STATICS **************************************************************** //
 
@@ -22,7 +23,7 @@ void NcursesDisplay::colorTheme() {
 			{{36,  36,  36},  {220, 64,  53},  {78,  78,  82}}
 	};
 	init_color(COLOR_BORDER,
-			   theme[i].borfer.r, theme[i].borfer.g, theme[i].borfer.b);
+			   theme[i].border.r, theme[i].border.g, theme[i].border.b);
 	init_color(COLOR_TITLE,
 			   theme[i].title.r, theme[i].title.g, theme[i].title.b);
 	init_color(COLOR_BACK, theme[i].back.r, theme[i].back.g, theme[i].back.b);
@@ -31,6 +32,9 @@ void NcursesDisplay::colorTheme() {
 }
 
 // * CONSTRUCTORS *********************************************************** //
+
+NcursesDisplay::NcursesDisplay(int) : 
+		open(true), windowCount(0), windows(), panels(), views(), changes(){}
 
 NcursesDisplay::NcursesDisplay() :
 		open(true), windowCount(0), windows(), panels(), views(), changes() {
@@ -58,6 +62,7 @@ NcursesDisplay::NcursesDisplay(NcursesDisplay const &) {}
 // * DESTRUCTORS ************************************************************ //
 
 NcursesDisplay::~NcursesDisplay() {
+	clear();
 	endwin();
 }
 
@@ -229,6 +234,11 @@ void NcursesDisplay::processInput() {
 			break;
 		case 'q':
 			open = false;
+			break;
+		case 'p':
+			Monitor::swap = 1;
+			open = false;
+			break;
 		default:
 			break;
 	}

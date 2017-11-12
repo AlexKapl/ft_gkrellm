@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   NcursesDisplay.hpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akaplyar <akaplyar@student.unit.ua>        +#+  +:+       +#+        */
+/*   By: hshakula <hshakula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/11 12:19:00 by akaplyar          #+#    #+#             */
-/*   Updated: 2017/11/11 12:19:00 by akaplyar         ###   ########.fr       */
+/*   Updated: 2017/11/12 22:16:57 by hshakula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ public:
 	typedef Windows::iterator iterator;
 
 	NcursesDisplay();
+
+	NcursesDisplay(int);
 
 	~NcursesDisplay();
 
@@ -89,7 +91,7 @@ private:
 
 	struct themes {
 		colors title;
-		colors borfer;
+		colors border;
 		colors back;
 	};
 

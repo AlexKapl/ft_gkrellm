@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Monitor.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akaplyar <akaplyar@student.unit.ua>        +#+  +:+       +#+        */
+/*   By: hshakula <hshakula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 18:53:00 by akaplyar          #+#    #+#             */
-/*   Updated: 2017/11/10 18:53:00 by akaplyar         ###   ########.fr       */
+/*   Updated: 2017/11/12 21:59:18 by hshakula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,9 @@ public:
 
 	IMonitorDisplay *getDisplay() const;
 
-private:
+	static int swap;
 
+private:
 	int width;
 	int height;
 	Modules modules;

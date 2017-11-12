@@ -1,18 +1,25 @@
 #include "sfmlDisplay.hpp"
+#include "Monitor.hpp"
 
-sfmlDisplay::sfmlDisplay() : settings(0, 0, 4),
+sfmlDisplay::sfmlDisplay() : themeNum(0), settings(0, 0, 4),
 		viewCount(0), views(),
 		window(new sf::RenderWindow(sf::VideoMode(500, 2000),
 			   "ft_gkrellm",
 			   sf::Style::Default & (~(1 << 1)),
 			   settings))
-{}
+{
+	themes.push_back(theme(sf::Color(441/3.92, 453/3.92, 455/3.92), sf::Color(291/3.92, 293/3.92, 295/3.92), sf::Color(188/3.92, 194/3.92, 200/3.92)));
+	themes.push_back(theme(sf::Color(99/3.92,  92/3.92,  60/3.92),  sf::Color(230/3.92, 223/3.92, 165/3.92), sf::Color(226/3.92, 143/3.92, 179/3.92)));
+	themes.push_back(theme(sf::Color(36/3.92,  36/3.92,  36/3.92),  sf::Color(220/3.92, 64/3.92,  53/3.92),  sf::Color(78/3.92,  78/3.92,  82/3.92)));
+}
+
+sfmlDisplay::sfmlDisplay(int) {}
 
 sfmlDisplay::sfmlDisplay(sfmlDisplay const &) {}
 sfmlDisplay::~sfmlDisplay() {}
 sfmlDisplay &sfmlDisplay::operator=(sfmlDisplay const &) { return *this; }
 
-void sfmlDisplay::clear() { window->clear(); }
+void sfmlDisplay::clear() { window->clear(sfmlDisplay::themes[themeNum].backColor); }
 bool sfmlDisplay::isOpen() { return window->isOpen(); }
 
 sf::RectangleShape sfmlDisplay::createLine(int w, int h, int x, int y, int rotate) {
@@ -25,11 +32,12 @@ sf::RectangleShape sfmlDisplay::createLine(int w, int h, int x, int y, int rotat
 	return rectangle;
 }
 
+void sfmlDisplay::colorTheme() {
+	if (++themeNum > THEMES_NUM - 1)
+		themeNum = 0;
+}
+
 void sfmlDisplay::draw() {
-	// window->setView(*views[0]);
-	// sf::CircleShape shape(100.f);
-	// shape.setFillColor(sf::Color::Green);
-	// window->draw(shape);
 	window->display();
 }
 
@@ -40,100 +48,13 @@ void sfmlDisplay::processInput() {
 		if (event.type == sf::Event::Closed ||
 		   (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape))
 			window->close();
-		// if (event.type != sf::Event::KeyPressed)
-		// 	continue ;
-		// if (event.key.code == sf::Keyboard::Q) {
-		// 	chosenView = (chosenView == -1) ? 0 : -1;
-		// }
-		// if (event.key.code == sf::Keyboard::Up) {
-		// 	if (!moveMode) {
-		// 		chosenView--;
-		// 		if (chosenView == -1)
-		// 			chosenView = views.size() - 1;
-		// 	}
-		// 	else {
-		// 		if (chosenView == 0) {
-		// 			continue ;
-		// 		}
-		// 		else {
-		// 			sf::View *view = views[chosenView], *swapView = views[chosenView - 1];
-
-		// 			sf::FloatRect	viewViewport = view->getViewport(),
-		// 							swapViewViewport = swapView->getViewport(),
-		// 							tmpViewport = view->getViewport();
-
-		// 			sf::Vector2f viewCenter = view->getCenter(), swapViewCenter = swapView->getCenter();
-		// 			sf::Vector2f viewSize = view->getSize(), swapViewSize = swapView->getSize();
-		// 			// int viewX = viewCenter.x - viewSize.x / 2, viewY = viewCenter.y - viewSize.y / 2;
-		// 			int swapViewX = swapViewCenter.x - swapViewSize.x / 2, swapViewY = swapViewCenter.y - swapViewSize.y / 2;
-
-		// 			sf::FloatRect	viewRect(swapViewX, swapViewY, viewSize.x, viewSize.y),
-		// 							swapViewRect(swapViewX + viewSize.x, swapViewY + viewSize.y, swapViewSize.x, swapViewSize.y);
-		// 			tmpViewport = viewViewport;
-		// 			viewViewport.top = swapViewViewport.top;
-		// 			swapViewViewport.top += viewViewport.height;
-
-		// 			view->setViewport(viewViewport);
-		// 			swapView->setViewport(swapViewViewport);
-
-		// 			view->reset(viewRect);
-		// 			swapView->reset(swapViewRect);
-
-		// 			// views[chosenView] = swapView;
-		// 			// views[chosenView - 1] = view;
-		// 			int tmp = chosenView;
-		// 			chosenView = nums[chosenView - 1];
-		// 			nums[chosenView - 1] = tmp;
-		// 			chosenView--;
-		// 		}
-		// 	}
-		// }
-		// if (event.key.code == sf::Keyboard::Down) {
-		// 	if (!moveMode) {
-		// 		chosenView++;
-		// 		if (chosenView == views.size())
-		// 			chosenView = 0;
-		// 	}
-		// 	else {
-		// 		if (chosenView == views.size() - 1) {
-		// 			continue ;
-		// 		}
-		// 		else {
-		// 			sf::View *view = views[chosenView], *swapView = views[chosenView + 1];
-
-		// 			sf::FloatRect	viewViewport = view->getViewport(),
-		// 							swapViewViewport = swapView->getViewport(),
-		// 							tmpViewport;
-
-		// 			sf::Vector2f viewCenter = view->getCenter(), swapViewCenter = swapView->getCenter();
-		// 			sf::Vector2f viewSize = view->getSize(), swapViewSize = swapView->getSize();
-		// 			int viewX = viewCenter.x - viewSize.x / 2, viewY = viewCenter.y - viewSize.y / 2;
-		// 			// int swapViewX = swapViewCenter.x - swapViewSize.x / 2, swapViewY = swapViewCenter.y - swapViewSize.y / 2;
-
-		// 			sf::FloatRect	viewRect(viewX + swapViewSize.x, viewY + swapViewSize.y, viewSize.x, viewSize.y),
-		// 							swapViewRect(viewX, viewY, swapViewSize.x, swapViewSize.y);
-		// 			tmpViewport = viewViewport;
-		// 			swapViewViewport.top = viewViewport.top;
-		// 			viewViewport.top += swapViewViewport.height;
-
-		// 			swapView->setViewport(viewViewport);
-		// 			view->setViewport(swapViewViewport);
-
-		// 			swapView->reset(viewRect);
-		// 			view->reset(swapViewRect);
-
-		// 			// views[chosenView] = swapView;
-		// 			// views[chosenView + 1] = view;
-		// 			int tmp = chosenView;
-		// 			chosenView = nums[chosenView + 1];
-		// 			nums[chosenView + 1] = tmp;
-		// 			chosenView++;
-		// 		}
-		// 	}
-		// }
-		// if (event.key.code == sf::Keyboard::M) {
-		// 	moveMode = (moveMode) ? false : true;
-		// }
+		if (event.type != sf::Event::KeyPressed && event.key.code == sf::Keyboard::P)
+		{
+			window->close();
+			Monitor::swap = 1;
+		}
+		if (event.type != sf::Event::KeyPressed && event.key.code == sf::Keyboard::Tab)
+			colorTheme();
 	}
 }
 
@@ -153,19 +74,11 @@ void sfmlDisplay::drawBorder(int num) {
 						upSide1	  = createLine(10, size.x, dx, 50 + dy, -90),
 						downSide  = createLine(10, size.x, dx, size.y + dy, -90);
 
-	leftSide.setFillColor(sf::Color(192, 192, 192));
-	rightSide.setFillColor(sf::Color(192, 192, 192));
-	// if (chosenView == num)
-	// {
-	// 	if (!moveMode)
-	// 		upSide.setFillColor(sf::Color(108, 255, 108));
-	// 	else
-	// 		upSide.setFillColor(sf::Color(108, 108, 255));
-	// }
-	// else
-		upSide.setFillColor(sf::Color(108, 108, 108));
-	upSide1.setFillColor(sf::Color(192, 192, 192));
-	downSide.setFillColor(sf::Color(192, 192, 192));
+	leftSide.setFillColor(sfmlDisplay::themes[themeNum].borderColor);
+	rightSide.setFillColor(sfmlDisplay::themes[themeNum].borderColor);
+	upSide.setFillColor(sfmlDisplay::themes[themeNum].titleColor);
+	upSide1.setFillColor(sfmlDisplay::themes[themeNum].borderColor);
+	downSide.setFillColor(sfmlDisplay::themes[themeNum].borderColor);
 
 	window->draw(leftSide);
 	window->draw(rightSide);
@@ -244,4 +157,17 @@ int sfmlDisplay::getWindowNum(int h, int w, int y, int x) {
 	views.push_back(view);
 	// std::cout << h << " " << w << " " << yf << " " << xf << std::endl;
 	return (viewCount++);
+}
+
+
+sfmlDisplay::theme::theme(sf::Color c1, sf::Color c2, sf::Color c3) : titleColor(c1), borderColor(c2), backColor(c3) {}
+sfmlDisplay::theme &sfmlDisplay::theme::operator=(theme const &t) {
+	this->titleColor = t.titleColor;
+	this->borderColor = t.borderColor;
+	this->backColor = t.backColor;
+	return *this;
+}
+sfmlDisplay::theme::~theme() {}
+sfmlDisplay::theme::theme(theme const &t) {
+	*this = t;
 }

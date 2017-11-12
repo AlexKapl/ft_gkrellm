@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   RamModule.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akaplyar <akaplyar@student.unit.ua>        +#+  +:+       +#+        */
+/*   By: hshakula <hshakula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/12 19:29:00 by akaplyar          #+#    #+#             */
-/*   Updated: 2017/11/12 19:29:00 by akaplyar         ###   ########.fr       */
+/*   Updated: 2017/11/12 21:22:00 by hshakula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,12 @@ RamModule::RamModule(int height, Monitor &monitor) : AModule("Ram") {
 	this->height = static_cast<int>(lines.size() + 1);
 	this->refresh();
 	display = monitor.getDisplay();
+	int w, h;
+	display->getMaxYX(h, w);
+	if (w > width)
+		width = w;
 	win = display->getWindowNum(this->height, this->width, height, 0);
 }
-
 
 // * DESTRUCTORS ************************************************************ //
 
