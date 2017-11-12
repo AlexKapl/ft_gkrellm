@@ -30,6 +30,11 @@
 # define TEXT 4
 # define BORDER 5
 # define TITLE 6
+# define HIGHLIGHT 12
 # define COR(x) ((x) + 8)
+# define ENTER 10
+# define PAUSE 32
+# define BACKSPACE 127
+# define TAB 9
 
 #endif

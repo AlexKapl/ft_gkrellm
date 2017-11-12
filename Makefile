@@ -6,7 +6,7 @@
 #    By: akaplyar <akaplyar@student.unit.ua>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/10/30 10:34:18 by akaplyar          #+#    #+#              #
-#    Updated: 2017/11/11 19:09:41 by akaplyar         ###   ########.fr        #
+#    Updated: 2017/11/12 10:29:50 by akaplyar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ NAME = ft_gkrellm
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) -lncurses
+	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) -lncurses -lpanel
 	@printf "\x1B[32m\0%s created\x1B[0m\0\n" $(NAME)
 
 .cpp.o:

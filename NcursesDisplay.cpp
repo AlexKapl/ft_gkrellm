@@ -15,7 +15,8 @@
 // * STATICS **************************************************************** //
 // * CONSTRUCTORS *********************************************************** //
 
-NcursesDisplay::NcursesDisplay() : windowCount(0), windows(), panels(){
+NcursesDisplay::NcursesDisplay() :
+		windowCount(0), windows(), panels(), changes() {
 	initscr();
 	cbreak();
 	noecho();
@@ -36,6 +37,7 @@ NcursesDisplay::NcursesDisplay() : windowCount(0), windows(), panels(){
 	init_pair(9, COLOR_BLACK, COLOR_RED);
 	init_pair(10, COLOR_BLACK, COLOR_CYAN);
 	init_pair(11, COLOR_BLACK, COLOR_YELLOW);
+	init_pair(HIGHLIGHT, COLOR_WHITE, COLOR_GREEN);
 	refresh();
 }
 
@@ -44,7 +46,7 @@ NcursesDisplay::NcursesDisplay(NcursesDisplay const &) {}
 // * DESTRUCTORS ************************************************************ //
 
 NcursesDisplay::~NcursesDisplay() {
-
+	endwin();
 }
 
 // * OPERATORS ************************************************************** //
@@ -72,10 +74,12 @@ void NcursesDisplay::draw() {
 
 int NcursesDisplay::getWindowNum(int h, int w, int y, int x) {
 	WINDOW *win = newwin(h, w, y, x);
+	PANEL *panel = new_panel(win);
 
 	drawBorder(win);
 	windows.push_back(win);
-	panels.push_back(new_panel(win));
+	panels.push_back(new Panel(panel, h, y));
+	set_panel_userptr(panel, win);
 	return (windowCount++);
 }
 
@@ -84,10 +88,13 @@ void NcursesDisplay::getMaxYX(int &h, int &w) {
 }
 
 void NcursesDisplay::drawBorder(WINDOW *win) {
-	wattron(win, COLOR_PAIR(BORDER));
+	int color =
+			(win != changes.win ? COLOR_PAIR(BORDER) : COLOR_PAIR(HIGHLIGHT));
+	// check for highlighting window for change
+
+	wattron(win, color);
 	wborder(win, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
-	wattroff(win, COLOR_PAIR(BORDER));
-//	wrefresh(win);
+	wattroff(win, color);
 }
 
 void NcursesDisplay::drawLine(int num, int y, int x, Line *line) {
@@ -117,4 +124,87 @@ void NcursesDisplay::cleanLine(WINDOW *win, int y) {
 	mvwhline(win, y, 1, ' ', getmaxx(win) - 2);
 }
 
+void NcursesDisplay::process_input() {
+	int g = getch();
+
+	switch (g) {
+		case ENTER:
+			changes.highlight(this);
+			break;
+		case BACKSPACE:
+			changes.normal();
+			break;
+		case KEY_UP:
+			changes.up(this);
+			break;
+		case KEY_DOWN:
+			changes.down(this);
+			break;
+		default:
+			break;
+	}
+}
+
+void NcursesDisplay::swapWindows(int lhs, int rhs) {
+
+	panels[rhs]->y = panels[lhs]->y;
+	panels[lhs]->y = panels[lhs]->y + panels[rhs]->h;
+	move_panel(panels[rhs]->panel, panels[rhs]->y, 0);
+	move_panel(panels[lhs]->panel, panels[lhs]->y, 0);
+
+	Panel * swap = panels[lhs];
+	panels[lhs] = panels[rhs];
+	panels[rhs] = swap;
+}
+
 // * NESTED_CLASSES ********************************************************* //
+
+NcursesDisplay::change::change() :
+		chooseMode(false), changeMode(false), panel(0), win() {}
+
+void NcursesDisplay::change::highlight(NcursesDisplay *display) {
+	if (!chooseMode) {
+		chooseMode = true;
+		win = display->windows[panel];
+	}
+	else changeMode = !changeMode;
+}
+
+void NcursesDisplay::change::up(NcursesDisplay *display) {
+	if (chooseMode) {
+		if (changeMode) {
+			if (panel) {
+				display->swapWindows(panel - 1, panel);
+				--panel;
+			}
+		}
+		else if (panel) {
+			win = static_cast<WINDOW *>(panel_userptr(
+					display->panels[--panel]->panel));
+		}
+	}
+}
+
+void NcursesDisplay::change::down(NcursesDisplay *display) {
+	if (chooseMode) {
+		if (changeMode) {
+			if (panel + 1 < display->windowCount) {
+				display->swapWindows(panel, panel + 1);
+				++panel;
+			}
+		}
+		else if (panel + 1 < display->windowCount) {
+			win = static_cast<WINDOW *>(panel_userptr(
+					display->panels[++panel]->panel));
+		}
+	}
+}
+
+void NcursesDisplay::change::normal() {
+	chooseMode = false;
+	changeMode = false;
+	win = NULL;
+}
+
+NcursesDisplay::Panel::Panel(PANEL *panel, int h, int y) :
+		panel(panel), h(h), y(y) {}

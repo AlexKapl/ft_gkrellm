@@ -32,6 +32,8 @@ public:
 
 	void draw();
 
+	void loop();
+
 	void refreshAll();
 
 	void addModule(IMonitorModule *module);

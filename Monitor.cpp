@@ -30,6 +30,7 @@ Monitor::~Monitor() {
 		delete (module);
 	}
 	modules.clear();
+	delete(display);
 }
 
 // * OPERATORS ************************************************************** //
@@ -90,6 +91,15 @@ void Monitor::refreshAll() {
 	for (iterator it = modules.begin(); it != end; ++it) {
 		module = *it;
 		module->refresh();
+	}
+}
+
+void Monitor::loop() {
+
+	while (1) {
+		refreshAll();
+		draw();
+		display->process_input();
 	}
 }
 
