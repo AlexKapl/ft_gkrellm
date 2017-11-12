@@ -38,7 +38,11 @@ public:
 
 	~NcursesDisplay();
 
-	void process_input();
+	void clear() {};
+
+	void drawPony(int, AnimatedSprite &) {};
+
+	void processInput();
 
 	bool isOpen();
 

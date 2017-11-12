@@ -193,7 +193,7 @@ void NcursesDisplay::cleanLine(WINDOW *win, int y) {
 	mvwhline(win, y, 1, ' ', getmaxx(win) - 2);
 }
 
-void NcursesDisplay::process_input() {
+void NcursesDisplay::processInput() {
 	int g = getch();
 
 	switch (g) {

@@ -13,28 +13,29 @@
 #include <bitset>
 #include "Monitor.hpp"
 #include "UserModule.hpp"
-// #include "NcursesDisplay.hpp"
+#include "NcursesDisplay.hpp"
 #include "sfmlDisplay.hpp"
 #include "OsModule.hpp"
 #include "DateModule.hpp"
 #include "CpuModule.hpp"
 #include "PonyModule.hpp"
+#include "RamModule.hpp"
 
 void parseFlags(Monitor &monitor, std::string flags) {
 
 	int displayIsSet = 0;
 
-	// if (flags.find('N') != std::string::npos) {
-	// 	monitor.setDisplay(new NcursesDisplay());
-	// 	displayIsSet = 1;
-	// }
+	 if (flags.find('N') != std::string::npos) {
+	 	monitor.setDisplay(new NcursesDisplay());
+	 	displayIsSet = 1;
+	 }
 	if (!displayIsSet && flags.find('S') != std::string::npos) {
 		monitor.setDisplay(new sfmlDisplay());
 		displayIsSet = 2;
 	}
 
 
-	if (displayIsSet) {
+	if (displayIsSet == 2) {
 		std::bitset<7> bitFlags;
 		for (std::size_t i = 0; i < flags.size(); i++) {
 			if (flags[i] == 'o' && bitFlags[0] == false) {
@@ -53,10 +54,10 @@ void parseFlags(Monitor &monitor, std::string flags) {
 				bitFlags.set(3);
 				monitor.addModule(new UserModule(monitor.getHeight(), monitor));
 			}
-			// if (flags[i] == 'r' && bitFlags[4] == false) {
-			// 	bitFlags.set(4);
-			// 	monitor.addModule(new RamModule(monitor.getHeight(), monitor));
-			// }
+			 if (flags[i] == 'r' && bitFlags[4] == false) {
+			 	bitFlags.set(4);
+			 	monitor.addModule(new RamModule(monitor.getHeight(), monitor));
+			 }
 			// if (flags[i] == 'n' && bitFlags[5] == false) {
 			// 	bitFlags.set(5);
 			// 	monitor.addModule(new NetModule(monitor.getHeight(), monitor));
@@ -72,8 +73,16 @@ void parseFlags(Monitor &monitor, std::string flags) {
 		}
 		if (bitFlags.count() == 0) {
 			std::cout << "Error: no modules" << std::endl;
+			endwin();
 			exit(-1);
 		}
+	}
+	else if (displayIsSet == 1) {
+		monitor.addModule(new UserModule(monitor.getHeight(), monitor));
+		monitor.addModule(new OsModule(monitor.getHeight(), monitor));
+		monitor.addModule(new DateModule(monitor.getHeight(), monitor));
+		monitor.addModule(new CpuModule(monitor.getHeight(), monitor));
+		monitor.addModule(new RamModule(monitor.getHeight(), monitor));
 	}
 	else {
 		std::cout << "Error: missing display" << std::endl;

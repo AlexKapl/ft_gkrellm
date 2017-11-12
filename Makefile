@@ -3,40 +3,68 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: akaplyar <akaplyar@student.unit.ua>        +#+  +:+       +#+         #
+#    By: hshakula <hshakula@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/10/30 10:34:18 by akaplyar          #+#    #+#              #
-#    Updated: 2017/11/12 20:29:53 by akaplyar         ###   ########.fr        #
+#    Updated: 2017/11/12 21:11:41 by akaplyar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC = @clang++
-CFLAGS = -Wall -Wextra -Werror
-
-OBJ =	main.o Kernel.o UserModule.o Monitor.o Line.o RamModule.o\
-		NcursesDisplay.o AModule.o OsModule.o DateModule.o CpuModule.o
-
 NAME = ft_gkrellm
+
+SRCSFILES = main.cpp Kernel.cpp UserModule.cpp Monitor.cpp Line.cpp\
+		sfmlDisplay.cpp OsModule.cpp AModule.cpp DateModule.cpp CpuModule.cpp \
+		PonyModule.cpp Animation.cpp AnimatedSprite.cpp RamModule.cpp NcursesDisplay.cpp
+
+SRCPATH = ./
+OBJPATH = obj/
+CC = g++
+INCLUDES = -I $(SRCPATH) -I $(shell pwd)/SFML/include
+
+# LIBS =	-L SFML/lib -lsfml-graphics -lsfml-window -lsfml-system\
+# 		SFML/Frameworks/sfml-graphics.framework/sfml-graphics\
+# 		SFML/Frameworks/sfml-window.framework/sfml-window\
+# 		SFML/Frameworks/sfml-system.framework/sfml-system
+# LIBS = -L SFML/lib -lsfml-graphics -lsfml-window -lsfml-system
+
+LDENV = DYLD_FRAMEWORK_PATH="$(shell pwd)/SFML/Frameworks"
+# export DYLD_FRAMEWORK_PATH=`pwd`"/SFML/Frameworks"
+
+LIBS =	-framework sfml-graphics -framework sfml-window -framework sfml-system\
+		-F SFML/Frameworks -lncurses -lpanel
+CFLAGS = -Wall -Wextra -g -F SFML/Frameworks
+RM = rm -rf
+
+SRC = $(addprefix $(SRCPATH),$(SRCSFILES))
+OBJECTS = $(SRC:$(SRCPATH)%.cpp=$(OBJPATH)%.o)
+
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
-	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) -lncurses -lpanel
-	@printf "\x1B[32m\0%s created\x1B[0m\0\n" $(NAME)
+$(NAME): $(OBJECTS)
+	$(CC) $(CFLAGS) $(OBJECTS) $(LIBS) -o $@
 
-.cpp.o:
-	@$(CC) $(CFLAGS) -c $< -o $@
-	@printf "\x1B[32m\0Compile %s\x1B[0m\0\n" $<
+$(OBJECTS): $(OBJPATH)%.o : $(SRCPATH)%.cpp
+	@mkdir -p $(dir $@)
+	$(CC) -o $@ $(CFLAGS) $(INCLUDES) -c $<
+
+rmsfml:
+	rm -rf SFML
+
+sfml: rmsfml
+	curl -O "http://mirror0.sfml-dev.org/files/SFML-2.2-osx-clang-universal.tar.gz" 
+	mkdir SFML
+	tar -xzf SFML-2.2-osx-clang-universal.tar.gz -C SFML --strip-components=1
+	mv SFML/extlibs/freetype.framework SFML/Frameworks/
+	rm -rf "SFML-2.2-osx-clang-universal.tar.gz"
+
+ldenv:
+	@echo "export $(LDENV)"
 
 clean:
-	@rm -rf $(OBJ)
-	@printf "\x1B[31m\0%s objects cleared\x1B[0m\0\n" ${NAME}
+	$(RM) $(OBJPATH)
 
 fclean: clean
-	@rm -rf $(NAME)
-	@printf "\x1B[31m\0%s deleted\x1B[0m\0\n" ${NAME}
+	$(RM) $(NAME)
 
 re: fclean all
-
-SFML:
-	git clone https://github.com/SFML/SFML.git SFML
