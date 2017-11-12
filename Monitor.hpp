@@ -34,11 +34,11 @@ public:
 
 	void loop();
 
+	bool isOpen();
+
 	void refreshAll();
 
 	void addModule(IMonitorModule *module);
-
-	void hideModule(IMonitorModule *module);
 
 	int getWidth() const;
 

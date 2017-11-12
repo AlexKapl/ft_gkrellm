@@ -33,7 +33,7 @@ void NcursesDisplay::colorTheme() {
 // * CONSTRUCTORS *********************************************************** //
 
 NcursesDisplay::NcursesDisplay() :
-		windowCount(0), windows(), panels(), changes() {
+		open(true), windowCount(0), windows(), panels(), views(), changes() {
 	initscr();
 	cbreak();
 	noecho();
@@ -49,11 +49,6 @@ NcursesDisplay::NcursesDisplay() :
 	init_pair(BACK, COLOR_WHITE, COLOR_BACK);
 	init_pair(BORDER, COLOR_BLACK, COLOR_MAGENTA);
 	init_pair(TITLE, COLOR_WHITE, COLOR_TITLE);
-	init_pair(7, COLOR_TITLE, COLOR_BLACK);
-	init_pair(8, COLOR_BLACK, COLOR_GREEN);
-	init_pair(9, COLOR_BLACK, COLOR_RED);
-	init_pair(10, COLOR_BLACK, COLOR_CYAN);
-	init_pair(11, COLOR_BLACK, COLOR_TITLE);
 	init_pair(HIGHLIGHT, COLOR_WHITE, COLOR_GREEN);
 	refresh();
 }
@@ -76,16 +71,22 @@ NcursesDisplay &NcursesDisplay::operator=(NcursesDisplay const &assign) {
 }
 
 // * GETTERS **************************************************************** //
+
+bool NcursesDisplay::isOpen() {
+	return open;
+}
+
+void NcursesDisplay::getMaxYX(int &h, int &w) {
+	getmaxyx(stdscr, h, w);
+}
+
 // * SETTERS **************************************************************** //
 // * MEMBER FUNCTIONS / METHODS ********************************************* //
 
 void NcursesDisplay::draw() {
-	WINDOW *win;
-	iterator end = windows.end();
-
-	for (iterator it = windows.begin(); it != end; ++it) {
-		win = *it;
-		wrefresh(win);
+	for (int i = 0; i < windowCount; i++) {
+		if (views[i])
+			wrefresh(windows[i]);
 	}
 }
 
@@ -93,47 +94,99 @@ int NcursesDisplay::getWindowNum(int h, int w, int y, int x) {
 	WINDOW *win = newwin(h, w, y, x);
 	PANEL *panel = new_panel(win);
 
-	drawBorder(win);
+	views.push_back(true);
 	windows.push_back(win);
 	panels.push_back(new Panel(panel, h, y));
 	set_panel_userptr(panel, win);
+	drawBorder(windowCount);
 	return (windowCount++);
 }
 
-void NcursesDisplay::getMaxYX(int &h, int &w) {
-	getmaxyx(stdscr, h, w);
+WINDOW *NcursesDisplay::getWinByPanelId(int id) {
+	return (static_cast<WINDOW *>(panel_userptr(panels[id]->panel)));
 }
 
-void NcursesDisplay::drawBorder(WINDOW *win) {
-	int color =
-			(win != changes.win ? COLOR_PAIR(BORDER) : COLOR_PAIR(HIGHLIGHT));
-	// check for highlighting window for change
+int NcursesDisplay::getWinIdByPanelId(int id) {
+	WINDOW *win = getWinByPanelId(id);
 
-	wattron(win, color);
-	wborder(win, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
-	wattroff(win, color);
+	for (int i = 0; i < windowCount; i++) {
+		if (win == windows[i])
+			return (i);
+	}
+	return 0;
+}
+
+int NcursesDisplay::getPanelIdByWin(WINDOW *win) {
+	WINDOW *find;
+
+	for (int i = 0; i < windowCount; i++) {
+		find = getWinByPanelId(i);
+		if (find == win)
+			return (i);
+	}
+	return 0;
+}
+
+void NcursesDisplay::hidePanel(int num) {
+	int i = getPanelIdByWin(windows[num]);
+
+	changes.normal();
+	changes.panel = 0;
+	views[num] = !views[num];
+	if (!views[num]) {
+		hide_panel(panels[i]->panel);
+		for (; i + 1 < windowCount; i++) {
+			swapWindows(i, i + 1);
+		}
+	}
+	else {
+		show_panel(panels[i]->panel);
+		for (; i; i--) {
+			swapWindows(i - 1, i);
+		}
+	}
+	update_panels();
+	doupdate();
+}
+
+
+void NcursesDisplay::drawBorder(int num) {
+	if (views[num]) {
+		WINDOW *win = windows[num];
+		int color =
+				(win != changes.win ? COLOR_PAIR(BORDER) : COLOR_PAIR(
+						HIGHLIGHT));
+		// check for highlighting window for change
+
+		wattron(win, color);
+		wborder(win, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
+		wattroff(win, color);
+	}
 }
 
 void NcursesDisplay::drawLine(int num, int y, int x, Line *line) {
-	WINDOW *win = windows[num];
+	if (views[num]) {
+		WINDOW *win = windows[num];
 
-	wattron(win, COLOR_PAIR(BACK));
-	this->cleanLine(win, y);
-	mvwprintw(win, y, 1, "%s", line->getName().c_str());
-	x = ((getmaxx(win) / 2) - line->getSize() / 2);
-	mvwprintw(win, y, x, "%s", line->getValue().c_str());
-	wattroff(win, COLOR_PAIR(BACK));
+		wattron(win, COLOR_PAIR(BACK));
+		this->cleanLine(win, y);
+		mvwprintw(win, y, 1, "%s", line->getName().c_str());
+		x = ((getmaxx(win) / 2) - line->getSize() / 2);
+		mvwprintw(win, y, x, "%s", line->getValue().c_str());
+		wattroff(win, COLOR_PAIR(BACK));
+	}
 }
 
 void NcursesDisplay::drawTitle(int num, int x, Line *line) {
-	WINDOW *win = windows[num];
+	if (views[num]) {
+		WINDOW *win = windows[num];
 
-	drawBorder(win);
-	wattron(win, COLOR_PAIR(TITLE));
-	this->cleanLine(win, 0);
-	x = ((getmaxx(win) / 2) - line->getSize() / 2);
-	mvwprintw(win, 0, x, "%s", line->getValue().c_str());
-	wattroff(win, COLOR_PAIR(TITLE));
+		wattron(win, COLOR_PAIR(TITLE));
+		this->cleanLine(win, 0);
+		x = ((getmaxx(win) / 2) - line->getSize() / 2);
+		mvwprintw(win, 0, x, "%s", line->getValue().c_str());
+		wattroff(win, COLOR_PAIR(TITLE));
+	}
 }
 
 void NcursesDisplay::cleanLine(WINDOW *win, int y) {
@@ -159,6 +212,20 @@ void NcursesDisplay::process_input() {
 		case TAB:
 			NcursesDisplay::colorTheme();
 			break;
+		case 'u':
+			hidePanel(User);
+			break;
+		case 'o':
+			hidePanel(Os);
+			break;
+		case 'd':
+			hidePanel(Date);
+			break;
+		case 'c':
+			hidePanel(Cpu);
+			break;
+		case 'q':
+			open = false;
 		default:
 			break;
 	}
@@ -184,7 +251,9 @@ NcursesDisplay::change::change() :
 void NcursesDisplay::change::highlight(NcursesDisplay *display) {
 	if (!chooseMode) {
 		chooseMode = true;
-		win = display->windows[panel];
+		if (display->views[panel]) {
+			win = display->getWinByPanelId(panel);
+		}
 	}
 	else changeMode = !changeMode;
 }
@@ -198,23 +267,21 @@ void NcursesDisplay::change::up(NcursesDisplay *display) {
 			}
 		}
 		else if (panel) {
-			win = static_cast<WINDOW *>(panel_userptr(
-					display->panels[--panel]->panel));
+			win = display->getWinByPanelId(--panel);
 		}
 	}
 }
 
 void NcursesDisplay::change::down(NcursesDisplay *display) {
-	if (chooseMode) {
-		if (changeMode) {
-			if (panel + 1 < display->windowCount) {
+	if (chooseMode && panel + 1 < display->windowCount) {
+		if (display->views[display->getWinIdByPanelId(panel + 1)]) {
+			if (changeMode) {
 				display->swapWindows(panel, panel + 1);
 				++panel;
 			}
-		}
-		else if (panel + 1 < display->windowCount) {
-			win = static_cast<WINDOW *>(panel_userptr(
-					display->panels[++panel]->panel));
+			else {
+				win = display->getWinByPanelId(++panel);
+			}
 		}
 	}
 }

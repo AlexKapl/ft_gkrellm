@@ -28,8 +28,6 @@ public:
 
 private:
 
-	enum info {Host = 2, User};
-
 	UserModule();
 
 	UserModule(UserModule const &copy);

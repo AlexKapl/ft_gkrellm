@@ -22,9 +22,9 @@ class NcursesDisplay : public IMonitorDisplay {
 private:
 
 	struct Panel {
-		PANEL * panel;
-		int		h;
-		int		y;
+		PANEL *panel;
+		int h;
+		int y;
 
 		Panel(PANEL *panel, int h, int y);
 	};
@@ -40,9 +40,15 @@ public:
 
 	void process_input();
 
+	bool isOpen();
+
+	void hidePanel(int num);
+
 	void draw();
 
 	void drawTitle(int num, int x, Line *line);
+
+	void drawBorder(int num);
 
 	void drawLine(int num, int y, int x, Line *line);
 
@@ -52,6 +58,8 @@ public:
 
 private:
 
+	enum modules {User, Os, Date, Cpu};
+
 	struct change {
 		bool chooseMode;
 		bool changeMode;
@@ -60,13 +68,13 @@ private:
 
 		change();
 
-		void highlight(NcursesDisplay * display);
+		void highlight(NcursesDisplay *display);
 
 		void normal();
 
-		void up(NcursesDisplay * display);
+		void up(NcursesDisplay *display);
 
-		void down(NcursesDisplay * display);
+		void down(NcursesDisplay *display);
 	};
 
 	struct colors {
@@ -81,19 +89,27 @@ private:
 		colors back;
 	};
 
+	bool open;
+
 	int windowCount;
 
 	Windows windows;
 
 	Panels panels;
 
+	std::vector<bool> views;
+
 	change changes;
 
 	static void colorTheme();
 
-	void swapWindows(int lhs, int rhs);
+	int getPanelIdByWin(WINDOW *win);
 
-	void drawBorder(WINDOW *win);
+	int getWinIdByPanelId(int id);
+
+	WINDOW * getWinByPanelId(int id);
+
+	void swapWindows(int lhs, int rhs);
 
 	void cleanLine(WINDOW *win, int y);
 

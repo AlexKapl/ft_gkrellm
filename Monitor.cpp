@@ -67,10 +67,6 @@ void Monitor::addModule(IMonitorModule *module) {
 	height += module->getHeight();
 }
 
-void Monitor::hideModule(IMonitorModule *module) {
-	modules.push_back(module);//////////////////////!!!!!!!!!!!!!!!!!!!!!!!!!
-}
-
 // * MEMBER FUNCTIONS / METHODS ********************************************* //
 
 void Monitor::draw() {
@@ -95,11 +91,15 @@ void Monitor::refreshAll() {
 }
 
 void Monitor::loop() {
-	while (1) {
+	while (isOpen()) {
 		refreshAll();
 		draw();
 		display->process_input();
 	}
+}
+
+bool Monitor::isOpen() {
+	return display->isOpen();
 }
 
 // * NESTED_CLASSES ********************************************************* //

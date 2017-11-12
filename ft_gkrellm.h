@@ -25,17 +25,15 @@
 # include <sys/sysctl.h>
 # include <mach/mach_types.h>
 # include <mach/mach_host.h>
-# include "MyException.hpp"
 
 # define THEMES_NUM 3
 # define BACK 4
 # define BORDER 5
 # define TITLE 6
+# define HIGHLIGHT 7
 # define COLOR_BACK COLOR_BLUE
 # define COLOR_BORDER COLOR_MAGENTA
 # define COLOR_TITLE COLOR_YELLOW
-# define HIGHLIGHT 12
-# define COR(x) ((x) + 8)
 # define ENTER 10
 # define PAUSE 32
 # define BACKSPACE 127

@@ -58,6 +58,7 @@ int AModule::getHeight() const {
 // * MEMBER FUNCTIONS / METHODS ********************************************* //
 
 void AModule::draw(IMonitorDisplay *display) {
+	display->drawBorder(win);
 	display->drawTitle(win, 0, lines[0]);
 	for (unsigned i = 1; i < lines.size(); i++) {
 		display->drawLine(win, i, 0, lines[i]);
