@@ -16,6 +16,7 @@
 
 # include "ft_gkrellm.h"
 # include "Line.hpp"
+# include "AnimatedSprite.hpp"
 
 class IMonitorDisplay {
 
@@ -25,13 +26,9 @@ public:
 
 	virtual ~IMonitorDisplay() {}
 
-	virtual bool isOpen() = 0;
-
 	virtual void draw() = 0;
 
 	virtual void drawBorder(int num) = 0;
-
-	virtual void process_input() = 0;
 
 	virtual void drawTitle(int num, int x, Line * line) = 0;
 
@@ -41,12 +38,19 @@ public:
 
 	virtual int getWindowNum(int h, int w, int y, int x) = 0;
 
+	virtual void clear() = 0;
+
+	virtual bool isOpen() = 0;
+
+	virtual void processInput() = 0;
+
+	virtual void drawPony(int, AnimatedSprite &) = 0;
+
 private:
 
 	IMonitorDisplay(const IMonitorDisplay &) {};
 
 	IMonitorDisplay &operator=(const IMonitorDisplay &rhs);
 };
-
 
 #endif

@@ -15,7 +15,7 @@
 // * STATICS **************************************************************** //
 // * CONSTRUCTORS *********************************************************** //
 
-OsModule::OsModule(int height, Monitor &monitor) : AModule("Os") {
+OsModule::OsModule(int height, Monitor &monitor) : AModule("OS") {
 	int w, h;
 	IMonitorDisplay *display;
 

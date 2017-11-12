@@ -73,7 +73,10 @@ void Monitor::draw() {
 	IMonitorModule *module;
 	iterator end = modules.end();
 
-	for (iterator it = modules.begin(); it != end; ++it) {
+	display->clear();
+	display->processInput();
+
+	for (Modules::iterator it = modules.begin(); it != end; ++it) {
 		module = *it;
 		module->draw(display);
 	}
@@ -94,7 +97,7 @@ void Monitor::loop() {
 	while (isOpen()) {
 		refreshAll();
 		draw();
-		display->process_input();
+		display->processInput();
 	}
 }
 
