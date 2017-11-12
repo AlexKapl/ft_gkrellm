@@ -101,7 +101,7 @@ void sfmlDisplay::drawTitle(int num, int x, Line * line) {
 	title.setFont(font);
 	title.setString(line->getValue());
 	title.setColor(sf::Color(112, 147, 219));
-	x = 500 / 2;
+	x = (500 - line->getValue().size() * title.getCharacterSize() / 2) / 2;
 	title.setPosition(x + dx, dy);
 
 	window->draw(title);
