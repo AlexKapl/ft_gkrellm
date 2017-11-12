@@ -6,7 +6,7 @@
 #    By: hshakula <hshakula@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/10/30 10:34:18 by akaplyar          #+#    #+#              #
-#    Updated: 2017/11/12 21:11:41 by akaplyar         ###   ########.fr        #
+#    Updated: 2017/11/12 22:31:31 by akaplyar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,8 @@ NAME = ft_gkrellm
 
 SRCSFILES = main.cpp Kernel.cpp UserModule.cpp Monitor.cpp Line.cpp\
 		sfmlDisplay.cpp OsModule.cpp AModule.cpp DateModule.cpp CpuModule.cpp \
-		PonyModule.cpp Animation.cpp AnimatedSprite.cpp RamModule.cpp NcursesDisplay.cpp
+		PonyModule.cpp Animation.cpp AnimatedSprite.cpp RamModule.cpp NcursesDisplay.cpp\
+		NetworkModule.cpp
 
 SRCPATH = ./
 OBJPATH = obj/

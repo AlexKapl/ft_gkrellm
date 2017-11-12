@@ -19,6 +19,7 @@
 #include "CpuModule.hpp"
 #include "PonyModule.hpp"
 #include "RamModule.hpp"
+#include "NetworkModule.hpp"
 
 // * STATICS **************************************************************** //
 
@@ -137,6 +138,7 @@ void Monitor::loop() {
 			this->addModule(new DateModule(this->getHeight(), *this));
 			this->addModule(new CpuModule(this->getHeight(), *this));
 			this->addModule(new RamModule(this->getHeight(), *this));
+			this->addModule(new NetworkModule(this->getHeight(), *this));
 			Monitor::swap = 0;
 		}
 	}

@@ -33,7 +33,6 @@ AModule::~AModule() {
 		delete(line);
 	}
 	lines.clear();
-//	delwin(win);
 }
 
 // * OPERATORS ************************************************************** //
