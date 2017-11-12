@@ -1,28 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   RamModule.cpp                                      :+:      :+:    :+:   */
+/*   NetworkModule.cpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hshakula <hshakula@student.42.fr>          +#+  +:+       +#+        */
+/*   By: akaplyar <akaplyar@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/12 19:29:00 by akaplyar          #+#    #+#             */
-/*   Updated: 2017/11/12 21:22:00 by hshakula         ###   ########.fr       */
+/*   Created: 2017/11/12 21:59:00 by akaplyar          #+#    #+#             */
+/*   Updated: 2017/11/12 21:59:00 by akaplyar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "RamModule.hpp"
+#include "NetworkModule.hpp"
 
 // * STATICS **************************************************************** //
 // * CONSTRUCTORS *********************************************************** //
 
-RamModule::RamModule(int height, Monitor &monitor) : AModule("Ram") {
+NetworkModule::NetworkModule(int height, Monitor &monitor) : AModule("Network") {
 	int w, h;
 	IMonitorDisplay *display;
 
-	lines.push_back(new Line("Total:", ""));
-	lines.push_back(new Line("Used:", ""));
-	lines.push_back(new Line("Wired:", ""));
-	lines.push_back(new Line("Free:", ""));
+	lines.push_back(new Line("In:", ""));
+	lines.push_back(new Line("Out:", ""));
 	this->height = static_cast<int>(lines.size() + 1);
 	this->refresh();
 	display = monitor.getDisplay();
@@ -32,13 +30,14 @@ RamModule::RamModule(int height, Monitor &monitor) : AModule("Ram") {
 	win = display->getWindowNum(this->height, this->width, height, 0);
 }
 
+
 // * DESTRUCTORS ************************************************************ //
 
-RamModule::~RamModule() {}
+NetworkModule::~NetworkModule() {}
 
 // * OPERATORS ************************************************************** //
 
-RamModule &RamModule::operator=(RamModule const &assign) {
+NetworkModule &NetworkModule::operator=(NetworkModule const &assign) {
 	if (this != &assign) {}
 	return (*this);
 }
@@ -47,7 +46,7 @@ RamModule &RamModule::operator=(RamModule const &assign) {
 // * SETTERS **************************************************************** //
 // * MEMBER FUNCTIONS / METHODS ********************************************* //
 
-void RamModule::refresh() {
+void NetworkModule::refresh() {
 	static double seconds = -1, start = clock();
 	double secondsPassed;
 
@@ -55,21 +54,14 @@ void RamModule::refresh() {
 	if ((secondsPassed - seconds) > 0.3) {
 		seconds = secondsPassed;
 
-		unsigned long first, second;
+		unsigned long delim;
 		std::stringstream ss;
-		std::string used, wired, free, top = Kernel::getTopInfo(
-				"\"PhysMem\" | awk '{print $2$4\"|\"$6\"}\"}'");
+		std::string top = Kernel::getTopInfo(
+				"\"Net\" | awk '{print $3\"|\"$5\"}\"}'");
 
-		first = top.find('(');
-		second = top.find('|');
-		used = top.substr(0, first);
-		wired = top.substr(first + 1, second - first - 1);
-		free = top.substr(second + 1, top.find('}') - second - 1);
-		ss << std::atoi(used.c_str()) + std::atoi(free.c_str()) << 'M';
-		lines[Total]->setValue(ss.str());
-		lines[Used]->setValue(used);
-		lines[Wired]->setValue(wired);
-		lines[Free]->setValue(free);
+		delim = top.find('|');
+		lines[In]->setValue(top.substr(0, delim));
+		lines[Out]->setValue(top.substr(delim + 1, top.find('}') - delim - 1));
 	}
 }
 

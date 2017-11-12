@@ -20,6 +20,7 @@
 #include "CpuModule.hpp"
 #include "PonyModule.hpp"
 #include "RamModule.hpp"
+#include "NetworkModule.hpp"
 
 void parseFlags(Monitor &monitor, std::string flags) {
 
@@ -58,10 +59,10 @@ void parseFlags(Monitor &monitor, std::string flags) {
 			 	bitFlags.set(4);
 			 	monitor.addModule(new RamModule(monitor.getHeight(), monitor));
 			 }
-			// if (flags[i] == 'n' && bitFlags[5] == false) {
-			// 	bitFlags.set(5);
-			// 	monitor.addModule(new NetModule(monitor.getHeight(), monitor));
-			// }
+			 if (flags[i] == 'n' && bitFlags[5] == false) {
+			 	bitFlags.set(5);
+			 	monitor.addModule(new NetworkModule(monitor.getHeight(), monitor));
+			 }
 			if (flags[i] == 'p' && bitFlags[6] == false) {
 				if (displayIsSet == 2) {
 					bitFlags.set(6);
@@ -83,6 +84,7 @@ void parseFlags(Monitor &monitor, std::string flags) {
 		monitor.addModule(new DateModule(monitor.getHeight(), monitor));
 		monitor.addModule(new CpuModule(monitor.getHeight(), monitor));
 		monitor.addModule(new RamModule(monitor.getHeight(), monitor));
+		monitor.addModule(new NetworkModule(monitor.getHeight(), monitor));
 	}
 	else {
 		std::cout << "Error: missing display" << std::endl;
