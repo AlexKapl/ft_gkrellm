@@ -69,6 +69,18 @@ private:
 		void down(NcursesDisplay * display);
 	};
 
+	struct colors {
+		short r;
+		short g;
+		short b;
+	};
+
+	struct themes {
+		colors title;
+		colors borfer;
+		colors back;
+	};
+
 	int windowCount;
 
 	Windows windows;
@@ -76,6 +88,8 @@ private:
 	Panels panels;
 
 	change changes;
+
+	static void colorTheme();
 
 	void swapWindows(int lhs, int rhs);
 

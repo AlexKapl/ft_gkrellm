@@ -13,6 +13,23 @@
 #include "NcursesDisplay.hpp"
 
 // * STATICS **************************************************************** //
+
+void NcursesDisplay::colorTheme() {
+	static int i = 0;
+	static themes theme[] = {
+			{{441, 453, 455}, {291, 293, 295}, {188, 194, 200}},
+			{{99,  92,  60},  {230, 223, 165}, {226, 143, 179}},
+			{{36,  36,  36},  {220, 64,  53},  {78,  78,  82}}
+	};
+	init_color(COLOR_BORDER,
+			   theme[i].borfer.r, theme[i].borfer.g, theme[i].borfer.b);
+	init_color(COLOR_TITLE,
+			   theme[i].title.r, theme[i].title.g, theme[i].title.b);
+	init_color(COLOR_BACK, theme[i].back.r, theme[i].back.g, theme[i].back.b);
+	if (++i > THEMES_NUM - 1)
+		i = 0;
+}
+
 // * CONSTRUCTORS *********************************************************** //
 
 NcursesDisplay::NcursesDisplay() :
@@ -24,19 +41,19 @@ NcursesDisplay::NcursesDisplay() :
 	nodelay(stdscr, true);
 	keypad(stdscr, true);
 	start_color();
-	init_color(COLOR_MAGENTA, 441, 453, 455);
-	init_color(COLOR_BLUE, 188, 194, 200);
+	NcursesDisplay::colorTheme();
+	init_color(COLOR_GREEN, 0, 250, 0);
 	init_pair(1, COLOR_GREEN, COLOR_BLACK);
 	init_pair(2, COLOR_RED, COLOR_BLACK);
 	init_pair(3, COLOR_CYAN, COLOR_BLACK);
-	init_pair(TEXT, COLOR_WHITE, COLOR_BLUE);
+	init_pair(BACK, COLOR_WHITE, COLOR_BACK);
 	init_pair(BORDER, COLOR_BLACK, COLOR_MAGENTA);
-	init_pair(TITLE, COLOR_WHITE, COLOR_MAGENTA);
-	init_pair(7, COLOR_YELLOW, COLOR_BLACK);
+	init_pair(TITLE, COLOR_WHITE, COLOR_TITLE);
+	init_pair(7, COLOR_TITLE, COLOR_BLACK);
 	init_pair(8, COLOR_BLACK, COLOR_GREEN);
 	init_pair(9, COLOR_BLACK, COLOR_RED);
 	init_pair(10, COLOR_BLACK, COLOR_CYAN);
-	init_pair(11, COLOR_BLACK, COLOR_YELLOW);
+	init_pair(11, COLOR_BLACK, COLOR_TITLE);
 	init_pair(HIGHLIGHT, COLOR_WHITE, COLOR_GREEN);
 	refresh();
 }
@@ -100,12 +117,12 @@ void NcursesDisplay::drawBorder(WINDOW *win) {
 void NcursesDisplay::drawLine(int num, int y, int x, Line *line) {
 	WINDOW *win = windows[num];
 
-	wattron(win, COLOR_PAIR(TEXT));
+	wattron(win, COLOR_PAIR(BACK));
 	this->cleanLine(win, y);
 	mvwprintw(win, y, 1, "%s", line->getName().c_str());
 	x = ((getmaxx(win) / 2) - line->getSize() / 2);
 	mvwprintw(win, y, x, "%s", line->getValue().c_str());
-	wattroff(win, COLOR_PAIR(TEXT));
+	wattroff(win, COLOR_PAIR(BACK));
 }
 
 void NcursesDisplay::drawTitle(int num, int x, Line *line) {
@@ -113,11 +130,10 @@ void NcursesDisplay::drawTitle(int num, int x, Line *line) {
 
 	drawBorder(win);
 	wattron(win, COLOR_PAIR(TITLE));
-//	this->cleanLine(win, 0);
+	this->cleanLine(win, 0);
 	x = ((getmaxx(win) / 2) - line->getSize() / 2);
 	mvwprintw(win, 0, x, "%s", line->getValue().c_str());
 	wattroff(win, COLOR_PAIR(TITLE));
-
 }
 
 void NcursesDisplay::cleanLine(WINDOW *win, int y) {
@@ -140,6 +156,9 @@ void NcursesDisplay::process_input() {
 		case KEY_DOWN:
 			changes.down(this);
 			break;
+		case TAB:
+			NcursesDisplay::colorTheme();
+			break;
 		default:
 			break;
 	}
@@ -152,7 +171,7 @@ void NcursesDisplay::swapWindows(int lhs, int rhs) {
 	move_panel(panels[rhs]->panel, panels[rhs]->y, 0);
 	move_panel(panels[lhs]->panel, panels[lhs]->y, 0);
 
-	Panel * swap = panels[lhs];
+	Panel *swap = panels[lhs];
 	panels[lhs] = panels[rhs];
 	panels[rhs] = swap;
 }

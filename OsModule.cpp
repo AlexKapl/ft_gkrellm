@@ -26,12 +26,6 @@ OsModule::OsModule(int height, Monitor &monitor) : AModule("Os") {
 	this->refresh();
 	display = monitor.getDisplay();
 	display->getMaxYX(h, w);
-//	if ((h - height) < this->height) {
-//		throw MyException("Can't fit data in window. Please increase height");
-//	}
-//	else if (w < width) {
-//		throw MyException("Can't fit data in window. Please increase width");
-//	}
 	if (w > width)
 		width = w;
 	win = display->getWindowNum(this->height, this->width, height, 0);
