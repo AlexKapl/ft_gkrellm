@@ -52,13 +52,12 @@ CpuModule &CpuModule::operator=(CpuModule const &assign) {
 // * MEMBER FUNCTIONS / METHODS ********************************************* //
 
 void CpuModule::refresh() {
-	static int seconds = -1;
-	static double start = clock();
+	static double seconds = -1, start = clock();
 	double secondsPassed;
 
 	secondsPassed = (clock() - start) / CLOCKS_PER_SEC;
-	if (static_cast<int>(secondsPassed) > seconds) {
-		seconds = static_cast<int>(secondsPassed);
+	if ((secondsPassed - seconds) > 0.3) {
+		seconds = secondsPassed;
 
 		int s1, s2;
 		unsigned long first;
