@@ -232,6 +232,9 @@ void NcursesDisplay::processInput() {
 		case 'r':
 			hidePanel(Ram);
 			break;
+		case 'n':
+			hidePanel(Net);
+			break;
 		case 'q':
 			open = false;
 			break;
@@ -254,6 +257,10 @@ void NcursesDisplay::swapWindows(int lhs, int rhs) {
 	Panel *swap = panels[lhs];
 	panels[lhs] = panels[rhs];
 	panels[rhs] = swap;
+}
+
+void NcursesDisplay::clean() {
+
 }
 
 // * NESTED_CLASSES ********************************************************* //

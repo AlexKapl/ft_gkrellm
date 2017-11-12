@@ -38,7 +38,7 @@ public:
 
 	virtual int getWindowNum(int h, int w, int y, int x) = 0;
 
-	virtual void clear() = 0;
+	virtual void clean() = 0;
 
 	virtual bool isOpen() = 0;
 

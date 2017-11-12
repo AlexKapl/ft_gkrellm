@@ -19,7 +19,7 @@ sfmlDisplay::sfmlDisplay(sfmlDisplay const &) {}
 sfmlDisplay::~sfmlDisplay() {}
 sfmlDisplay &sfmlDisplay::operator=(sfmlDisplay const &) { return *this; }
 
-void sfmlDisplay::clear() { window->clear(sfmlDisplay::themes[themeNum].backColor); }
+void sfmlDisplay::clean() { window->clear(sfmlDisplay::themes[themeNum].backColor); }
 bool sfmlDisplay::isOpen() { return window->isOpen(); }
 
 sf::RectangleShape sfmlDisplay::createLine(int w, int h, int x, int y, int rotate) {

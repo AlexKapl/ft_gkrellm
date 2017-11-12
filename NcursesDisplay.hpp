@@ -40,7 +40,7 @@ public:
 
 	~NcursesDisplay();
 
-	void clear() {};
+	void clean();
 
 	void drawPony(int, AnimatedSprite &) {};
 
@@ -64,7 +64,7 @@ public:
 
 private:
 
-	enum modules {User, Os, Date, Cpu, Ram};
+	enum modules {User, Os, Date, Cpu, Ram, Net};
 
 	struct change {
 		bool chooseMode;
