@@ -24,10 +24,8 @@ CpuModule::CpuModule(int height, Monitor &monitor) : AModule("CPU") {
 			"machdep.cpu.brand_string")));
 	lines.push_back(new Line("Cores:", Kernel::getKernelInfoInt(
 			"machdep.cpu.core_count")));
-	lines.push_back(new Line("", ""));
-	lines.push_back(new Line("", ""));
-	lines.push_back(new Line("", ""));
-	lines.push_back(new Line("", ""));
+	lines.push_back(new Line("User:", ""));
+	lines.push_back(new Line("System:", ""));
 	this->height = static_cast<int>(lines.size() + 1);
 	this->refresh();
 	display = monitor.getDisplay();
@@ -54,13 +52,27 @@ CpuModule &CpuModule::operator=(CpuModule const &assign) {
 // * MEMBER FUNCTIONS / METHODS ********************************************* //
 
 void CpuModule::refresh() {
-	int size;
+	static int seconds = -1;
+	static double start = clock();
+	double secondsPassed;
 
-	for (int i = 4; i < 8; i++) {
-		lines[i]->setValue(Kernel::getCoreInfo(i - 4));
-		size = lines[i]->getSize();
-		if (width < size)
-			width = size;
+	secondsPassed = (clock() - start) / CLOCKS_PER_SEC;
+	if (static_cast<int>(secondsPassed) > seconds) {
+		seconds = static_cast<int>(secondsPassed);
+
+		int s1, s2;
+		unsigned long first;
+		std::string top = Kernel::getTopInfo("CPU").substr(11), user;
+		lines[User]->setValue(top.substr(0, top.find('%') + 1));
+		s1 = lines[User]->getSize();
+		first = top.find(',') + 2;
+		user = top.substr(first, top.find('%', first) - first + 1);
+		lines[System]->setValue(user);
+		s2 = lines[System]->getSize();
+		s1 = s1 > s2 ? s1 : s2;
+		if (width < s1)
+			width = s1;
+
 	}
 }
 

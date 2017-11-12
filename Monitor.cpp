@@ -22,7 +22,7 @@ Monitor::Monitor(Monitor const &) {}
 // * DESTRUCTORS ************************************************************ //
 
 Monitor::~Monitor() {
-	IMonitorModule * module;
+	IMonitorModule *module;
 	iterator end = modules.end();
 
 	for (Modules::iterator it = modules.begin(); it != end; ++it) {
@@ -30,7 +30,7 @@ Monitor::~Monitor() {
 		delete (module);
 	}
 	modules.clear();
-	delete(display);
+	delete (display);
 }
 
 // * OPERATORS ************************************************************** //
@@ -74,7 +74,7 @@ void Monitor::hideModule(IMonitorModule *module) {
 // * MEMBER FUNCTIONS / METHODS ********************************************* //
 
 void Monitor::draw() {
-	IMonitorModule * module;
+	IMonitorModule *module;
 	iterator end = modules.end();
 
 	for (iterator it = modules.begin(); it != end; ++it) {
@@ -85,7 +85,7 @@ void Monitor::draw() {
 }
 
 void Monitor::refreshAll() {
-	IMonitorModule * module;
+	IMonitorModule *module;
 	iterator end = modules.end();
 
 	for (iterator it = modules.begin(); it != end; ++it) {
@@ -95,7 +95,6 @@ void Monitor::refreshAll() {
 }
 
 void Monitor::loop() {
-
 	while (1) {
 		refreshAll();
 		draw();
