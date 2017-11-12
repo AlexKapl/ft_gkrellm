@@ -6,7 +6,7 @@
 /*   By: hshakula <hshakula@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 18:53:00 by akaplyar          #+#    #+#             */
-/*   Updated: 2017/11/11 18:50:38 by hshakula         ###   ########.fr       */
+/*   Updated: 2017/11/12 14:23:17 by hshakula         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ public:
 	void addModule(IMonitorModule *module);
 
 	void deleteModule(IMonitorModule *module);
+
+	void swapModule(int n1, int n2);
 
 	void getMaxYX(int & h, int & w);
 

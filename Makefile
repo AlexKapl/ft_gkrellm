@@ -6,7 +6,7 @@
 #    By: hshakula <hshakula@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/10/30 10:34:18 by akaplyar          #+#    #+#              #
-#    Updated: 2017/11/11 22:31:57 by hshakula         ###   ########.fr        #
+#    Updated: 2017/11/12 13:02:44 by hshakula         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,14 +20,18 @@ OBJPATH = obj/
 CC = g++
 INCLUDES = -I $(SRCPATH) -I $(shell pwd)/SFML/include
 
-LDENV = DYLD_FRAMEWORK_PATH="$(shell pwd)/SFML/Frameworks"
+# LIBS =	-L SFML/lib -lsfml-graphics -lsfml-window -lsfml-system\
+# 		SFML/Frameworks/sfml-graphics.framework/sfml-graphics\
+# 		SFML/Frameworks/sfml-window.framework/sfml-window\
+# 		SFML/Frameworks/sfml-system.framework/sfml-system
+# LIBS = -L SFML/lib -lsfml-graphics -lsfml-window -lsfml-system
 
-LIBS =	-framework SFML -framework sfml-window -framework sfml-system -framework sfml-graphics\
-		-lncurses
-# LIBS = -lncurses SFML/lib/libsfml-audio.2.2.0.dylib SFML/lib/libsfml-graphics.2.2.0.dylib \
-# 		SFML/lib/libsfml-network.2.2.0.dylib SFML/lib/libsfml-system.2.2.0.dylib \
-# 		SFML/lib/libsfml-window.2.2.0.dylib
-CFLAGS = -Werror -Wall -Wextra -g -F SFML/Frameworks
+LDENV = DYLD_FRAMEWORK_PATH="$(shell pwd)/SFML/Frameworks"
+# export DYLD_FRAMEWORK_PATH=`pwd`"/SFML/Frameworks"
+
+LIBS =	-framework sfml-graphics -framework sfml-window -framework sfml-system\
+		-F SFML/Frameworks -lncurses
+CFLAGS = -Wall -Wextra -g -F SFML/Frameworks
 RM = rm -rf
 
 SRC = $(addprefix $(SRCPATH),$(SRCSFILES))
@@ -63,4 +67,3 @@ fclean: clean
 	$(RM) $(NAME)
 
 re: fclean all
-

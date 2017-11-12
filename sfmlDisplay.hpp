@@ -45,7 +45,9 @@ private:
 
 	sfmlDisplay(sfmlDisplay const &s);
 	sfmlDisplay &operator=(sfmlDisplay const &s);
-	
+
+	// int chosenView;
+	// bool moveMode;
 };
 
 #endif // SFMLDISPLAY_HPP

@@ -40,6 +40,100 @@ void sfmlDisplay::processInput() {
 		if (event.type == sf::Event::Closed ||
 		   (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape))
 			window->close();
+		// if (event.type != sf::Event::KeyPressed)
+		// 	continue ;
+		// if (event.key.code == sf::Keyboard::Q) {
+		// 	chosenView = (chosenView == -1) ? 0 : -1;
+		// }
+		// if (event.key.code == sf::Keyboard::Up) {
+		// 	if (!moveMode) {
+		// 		chosenView--;
+		// 		if (chosenView == -1)
+		// 			chosenView = views.size() - 1;
+		// 	}
+		// 	else {
+		// 		if (chosenView == 0) {
+		// 			continue ;
+		// 		}
+		// 		else {
+		// 			sf::View *view = views[chosenView], *swapView = views[chosenView - 1];
+
+		// 			sf::FloatRect	viewViewport = view->getViewport(),
+		// 							swapViewViewport = swapView->getViewport(),
+		// 							tmpViewport = view->getViewport();
+
+		// 			sf::Vector2f viewCenter = view->getCenter(), swapViewCenter = swapView->getCenter();
+		// 			sf::Vector2f viewSize = view->getSize(), swapViewSize = swapView->getSize();
+		// 			// int viewX = viewCenter.x - viewSize.x / 2, viewY = viewCenter.y - viewSize.y / 2;
+		// 			int swapViewX = swapViewCenter.x - swapViewSize.x / 2, swapViewY = swapViewCenter.y - swapViewSize.y / 2;
+
+		// 			sf::FloatRect	viewRect(swapViewX, swapViewY, viewSize.x, viewSize.y),
+		// 							swapViewRect(swapViewX + viewSize.x, swapViewY + viewSize.y, swapViewSize.x, swapViewSize.y);
+		// 			tmpViewport = viewViewport;
+		// 			viewViewport.top = swapViewViewport.top;
+		// 			swapViewViewport.top += viewViewport.height;
+
+		// 			view->setViewport(viewViewport);
+		// 			swapView->setViewport(swapViewViewport);
+
+		// 			view->reset(viewRect);
+		// 			swapView->reset(swapViewRect);
+
+		// 			// views[chosenView] = swapView;
+		// 			// views[chosenView - 1] = view;
+		// 			int tmp = chosenView;
+		// 			chosenView = nums[chosenView - 1];
+		// 			nums[chosenView - 1] = tmp;
+		// 			chosenView--;
+		// 		}
+		// 	}
+		// }
+		// if (event.key.code == sf::Keyboard::Down) {
+		// 	if (!moveMode) {
+		// 		chosenView++;
+		// 		if (chosenView == views.size())
+		// 			chosenView = 0;
+		// 	}
+		// 	else {
+		// 		if (chosenView == views.size() - 1) {
+		// 			continue ;
+		// 		}
+		// 		else {
+		// 			sf::View *view = views[chosenView], *swapView = views[chosenView + 1];
+
+		// 			sf::FloatRect	viewViewport = view->getViewport(),
+		// 							swapViewViewport = swapView->getViewport(),
+		// 							tmpViewport;
+
+		// 			sf::Vector2f viewCenter = view->getCenter(), swapViewCenter = swapView->getCenter();
+		// 			sf::Vector2f viewSize = view->getSize(), swapViewSize = swapView->getSize();
+		// 			int viewX = viewCenter.x - viewSize.x / 2, viewY = viewCenter.y - viewSize.y / 2;
+		// 			// int swapViewX = swapViewCenter.x - swapViewSize.x / 2, swapViewY = swapViewCenter.y - swapViewSize.y / 2;
+
+		// 			sf::FloatRect	viewRect(viewX + swapViewSize.x, viewY + swapViewSize.y, viewSize.x, viewSize.y),
+		// 							swapViewRect(viewX, viewY, swapViewSize.x, swapViewSize.y);
+		// 			tmpViewport = viewViewport;
+		// 			swapViewViewport.top = viewViewport.top;
+		// 			viewViewport.top += swapViewViewport.height;
+
+		// 			swapView->setViewport(viewViewport);
+		// 			view->setViewport(swapViewViewport);
+
+		// 			swapView->reset(viewRect);
+		// 			view->reset(swapViewRect);
+
+		// 			// views[chosenView] = swapView;
+		// 			// views[chosenView + 1] = view;
+		// 			int tmp = chosenView;
+		// 			chosenView = nums[chosenView + 1];
+		// 			nums[chosenView + 1] = tmp;
+		// 			chosenView++;
+		// 		}
+		// 	}
+		// }
+		// if (event.key.code == sf::Keyboard::M) {
+		// 	moveMode = (moveMode) ? false : true;
+		// }
 	}
 }
 
@@ -61,7 +155,15 @@ void sfmlDisplay::drawBorder(int num) {
 
 	leftSide.setFillColor(sf::Color(192, 192, 192));
 	rightSide.setFillColor(sf::Color(192, 192, 192));
-	upSide.setFillColor(sf::Color(108, 108, 108));
+	// if (chosenView == num)
+	// {
+	// 	if (!moveMode)
+	// 		upSide.setFillColor(sf::Color(108, 255, 108));
+	// 	else
+	// 		upSide.setFillColor(sf::Color(108, 108, 255));
+	// }
+	// else
+		upSide.setFillColor(sf::Color(108, 108, 108));
 	upSide1.setFillColor(sf::Color(192, 192, 192));
 	downSide.setFillColor(sf::Color(192, 192, 192));
 
