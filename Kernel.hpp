@@ -25,8 +25,6 @@ public:
 
 	static std::string getKernelInfoInt(const std::string &name);
 
-	static std::string getCoreInfo(int core);
-
 	static std::string getTopInfo(const std::string &name);
 
 	static std::string getUserName();

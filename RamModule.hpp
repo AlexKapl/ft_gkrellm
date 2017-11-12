@@ -1,43 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   CpuModule.hpp                                      :+:      :+:    :+:   */
+/*   RamModule.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akaplyar <akaplyar@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/11 19:02:00 by akaplyar          #+#    #+#             */
-/*   Updated: 2017/11/11 19:02:00 by akaplyar         ###   ########.fr       */
+/*   Created: 2017/11/12 19:29:00 by akaplyar          #+#    #+#             */
+/*   Updated: 2017/11/12 19:29:00 by akaplyar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#ifndef CPUMODULE_HPP
-# define CPUMODULE_HPP
-
+#ifndef RAMMODULE_HPP
+# define RAMMODULE_HPP
 
 #include "AModule.hpp"
 
-class CpuModule : public AModule {
+class RamModule : public AModule {
 
 public:
 
-	CpuModule(int height, Monitor & monitor);
+	RamModule(int height, Monitor & monitor);
 
-	~CpuModule();
+	~RamModule();
 
 	void refresh();
 
 private:
 
-	enum info {User = 5, System};
+	enum info {Total = 2, Used, Wired, Free};
 
-	CpuModule();
+	RamModule();
 
-	CpuModule(CpuModule const &copy);
+	RamModule(RamModule const &copy);
 
-	CpuModule &operator=(CpuModule const &assign);
+	RamModule &operator=(RamModule const &assign);
 
 };
-
 
 #endif

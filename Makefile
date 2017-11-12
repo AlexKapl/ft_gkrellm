@@ -6,14 +6,14 @@
 #    By: akaplyar <akaplyar@student.unit.ua>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/10/30 10:34:18 by akaplyar          #+#    #+#              #
-#    Updated: 2017/11/12 10:29:50 by akaplyar         ###   ########.fr        #
+#    Updated: 2017/11/12 20:29:53 by akaplyar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = @clang++
 CFLAGS = -Wall -Wextra -Werror
 
-OBJ =	main.o Kernel.o UserModule.o Monitor.o Line.o\
+OBJ =	main.o Kernel.o UserModule.o Monitor.o Line.o RamModule.o\
 		NcursesDisplay.o AModule.o OsModule.o DateModule.o CpuModule.o
 
 NAME = ft_gkrellm

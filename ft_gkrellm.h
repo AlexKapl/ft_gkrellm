@@ -35,7 +35,6 @@
 # define COLOR_BORDER COLOR_MAGENTA
 # define COLOR_TITLE COLOR_YELLOW
 # define ENTER 10
-# define PAUSE 32
 # define BACKSPACE 127
 # define TAB 9
 

@@ -16,6 +16,7 @@
 #include "OsModule.hpp"
 #include "DateModule.hpp"
 #include "CpuModule.hpp"
+#include "RamModule.hpp"
 
 int main() {
 	Monitor monitor;
@@ -25,6 +26,7 @@ int main() {
 	monitor.addModule(new OsModule(monitor.getHeight(), monitor));
 	monitor.addModule(new DateModule(monitor.getHeight(), monitor));
 	monitor.addModule(new CpuModule(monitor.getHeight(), monitor));
+	monitor.addModule(new RamModule(monitor.getHeight(), monitor));
 	monitor.loop();
 	return (0);
 }

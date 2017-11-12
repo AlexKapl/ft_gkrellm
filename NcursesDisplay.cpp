@@ -224,6 +224,9 @@ void NcursesDisplay::process_input() {
 		case 'c':
 			hidePanel(Cpu);
 			break;
+		case 'r':
+			hidePanel(Ram);
+			break;
 		case 'q':
 			open = false;
 		default:

@@ -46,7 +46,7 @@ std::string Kernel::getUserName() {
 
 std::string Kernel::getTopInfo(const std::string &name) {
 	char buffer[256];
-	std::string cmd = "top -l 1 -n 0 | grep \"" + name + "\"", result;
+	std::string cmd = "top -l 1 -n 0 | grep " + name , result;
 	FILE *pipe = popen(cmd.c_str(), "r");
 
 	if (pipe) {
@@ -57,34 +57,6 @@ std::string Kernel::getTopInfo(const std::string &name) {
 		pclose(pipe);
 	}
 	return result;
-}
-
-std::string Kernel::getCoreInfo(int core) {
-	std::stringstream ss;
-	unsigned int core_count;
-	unsigned long long used, total;
-	processor_cpu_load_info_t cpuInfo;
-	mach_msg_type_number_t cpu_msg_count;
-
-	int rc = host_processor_info(
-			mach_host_self(),
-			PROCESSOR_CPU_LOAD_INFO,
-			&core_count,
-			reinterpret_cast<processor_info_array_t *>(&cpuInfo),
-			&cpu_msg_count
-	);
-	if (rc != 0)
-		throw std::runtime_error("Error: failed to scan processor info");
-
-	if (core < 0 || static_cast<int>(core_count) <= core)
-		throw std::runtime_error("Error: invalid core number");
-	used = cpuInfo[core].cpu_ticks[CPU_STATE_USER];
-	used += cpuInfo[core].cpu_ticks[CPU_STATE_NICE];
-	used += cpuInfo[core].cpu_ticks[CPU_STATE_SYSTEM];
-	total = used + cpuInfo[core].cpu_ticks[CPU_STATE_IDLE];
-//	ss << std::setprecision(2) << std::setiosflags(std::ios_base::fixed);
-	ss << (static_cast<double>(used) / static_cast<double >(total) * 100.0);
-	return (ss.str());
 }
 
 // * CONSTRUCTORS *********************************************************** //

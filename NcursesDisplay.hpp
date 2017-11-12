@@ -58,7 +58,7 @@ public:
 
 private:
 
-	enum modules {User, Os, Date, Cpu};
+	enum modules {User, Os, Date, Cpu, Ram};
 
 	struct change {
 		bool chooseMode;
